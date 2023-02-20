@@ -9,8 +9,6 @@
     export let indent;
     let counter = 1;
     export let expanded = false;
-    //let entries;
-    export let parent;
 
     let promise;
     $: expanded, expanded ? loadFiles() : promise = null;
@@ -51,6 +49,9 @@
 
     <List class="sub-list">
         {#await promise}
+            <Item style="padding-left: {indent*24}px">
+                <Text>...</Text>
+            </Item>
         {:then entries}
             {#if entries}
                 {#each entries as child}

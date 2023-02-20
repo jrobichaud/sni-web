@@ -1,7 +1,7 @@
 <script>
     import {DeviceFilesystemClient} from "./sni-client/sni_pb_service";
-    import {DirEntryType, ReadDirectoryRequest} from "./sni-client/sni_pb";
-    import List, { Item, Text } from '@smui/list';
+    import {DirEntryType} from "./sni-client/sni_pb";
+    import List from '@smui/list';
     import Directory from "./Directory.svelte";
 
     export let url;

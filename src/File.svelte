@@ -18,5 +18,5 @@
 
 
 <Item style="padding-left: {(indent+1)*24}px" on:SMUI:action={onClick}>
-    <Text>{name} ({fullpath})</Text>
+    <Text>{name}</Text>
 </Item>
