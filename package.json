@@ -1,0 +1,44 @@
+{
+  "name": "svelte-webpack",
+  "version": "1.0.0",
+  "description": "Svelte Webpack template from https://github.com/sveltejs/template-webpack",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "webpack-dev-server --content-base public",
+    "build": "cross-env NODE_ENV=production webpack",
+    "prepare": "npm run smui-theme-light && npm run smui-theme-dark",
+    "smui-theme-light": "smui-theme compile public/smui.css -i src/theme",
+    "smui-theme-dark": "smui-theme compile public/smui-dark.css -i src/theme/dark"
+  },
+  "dependencies": {
+    "@improbable-eng/grpc-web": "^0.15.0",
+    "@improbable-eng/grpc-web-node-http-transport": "^0.15.0",
+    "@types/google-protobuf": "^3.15.5",
+    "google-protobuf": "^3.19.4",
+    "svelte-material-ui": "^7.0.0-beta.0",
+    "ts-protoc-gen": "^0.15.0"
+  },
+  "devDependencies": {
+    "@smui/button": "^7.0.0-beta.0",
+    "@smui/list": "^7.0.0-beta.0",
+    "@smui/select": "^7.0.0-beta.0",
+    "@smui/textfield": "^7.0.0-beta.0",
+    "cross-env": "^6.0.3",
+    "css-loader": "^3.2.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "nodemon": "1.18.4",
+    "serve": "^11.2.0",
+    "smui-theme": "^7.0.0-beta.0",
+    "style-loader": "^1.0.0",
+    "svelte": "^3.15.0",
+    "svelte-loader": "^2.13.6",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "keywords": [
+    "svelte",
+    "webpack",
+    "node"
+  ]
+}
