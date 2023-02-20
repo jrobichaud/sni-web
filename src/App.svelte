@@ -2,36 +2,30 @@
     import Button from '@smui/button';
     import {grpc} from "@improbable-eng/grpc-web";
 
-    // Import code-generated data structures.
     import {
-        DeviceControl,
         DeviceControlClient,
-        DeviceFilesystemClient,
         Devices,
-        DevicesClient
     } from "./sni-client/sni_pb_service";
-    import {DevicesRequest, ReadDirectoryRequest, ResetSystemRequest, ResetToMenuRequest} from "./sni-client/sni_pb";
+    import {DevicesRequest, ResetSystemRequest, ResetToMenuRequest} from "./sni-client/sni_pb";
     import Textfield from "@smui/textfield/index";
     import HelperText from "@smui/textfield/helper-text";
     import Select from "@smui/select/index";
     import {Option} from "@smui/select";
+    import FileBrowser from "./FileBrowser.svelte";
 
-    let host = "http://retro-controller.local/sni";
+    let url = "http://retro-controller.local/sni";
     let devices;
     let device;
     let client;
-    let fileSystemClient;
 
-    $: device, loadFiles()
-    $: host, loadDevices()
+    $: url, loadDevices()
 
     function loadDevices() {
-        client = new DeviceControlClient(host);
-        fileSystemClient = new DeviceFilesystemClient(host, {debug: true});
+        client = new DeviceControlClient(url);
         const req = new DevicesRequest();
         grpc.unary(Devices.ListDevices, {
             request: req,
-            host: host,
+            host: url,
             onEnd: res => {
                 const {status, statusMessage, headers, message, trailers} = res;
                 console.log("response", res);
@@ -51,18 +45,6 @@
         });
     }
 
-    function loadFiles() {
-        if (!fileSystemClient || !device)
-            return;
-
-        const request = new ReadDirectoryRequest()
-        request.setUri(device.uri);
-        request.setPath("/")
-        fileSystemClient.debug = true;
-        fileSystemClient.readDirectory(request, {}, (err, res) => {
-            console.log("response read", res.getEntriesList());
-        });
-    }
 
     function resetMenu() {
         if (!client)
@@ -89,19 +71,13 @@
 <div>
     <Textfield
         variant="outlined"
-        bind:value={host}
+        bind:value={url}
         label="SNI url"
         style="width: 100%;"
         helperLine$style="width: 100%;"
     >
         <HelperText slot="helper">Enter the url of the SNI service</HelperText>
     </Textfield>
-</div>
-
-<div>
-    <p>
-        {JSON.stringify(device)}
-    </p>
 </div>
 
 {#if devices}
@@ -122,6 +98,9 @@
             <Button variant="outlined" on:click={resetSystem}>
                 Reset System
             </Button>
+        </div>
+        <div>
+        <FileBrowser device={device} url={url}></FileBrowser>
         </div>
     {/if}
 {/if}
