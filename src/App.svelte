@@ -13,7 +13,7 @@
     import {Option} from "@smui/select";
     import FileBrowser from "./FileBrowser.svelte";
 
-    let url = "http://retro-controller.local/sni";
+    let url = "/sni";
     let devices;
     let device;
     let client;
@@ -51,9 +51,7 @@
             return;
         let resetRequest = new ResetToMenuRequest()
         resetRequest.setUri(device.uri);
-        client.resetToMenu(resetRequest, {}, res => {
-            console.log("response", res);
-        })
+        client.resetToMenu(resetRequest)
     }
 
     function resetSystem() {
@@ -61,9 +59,7 @@
             return;
         let resetRequest = new ResetSystemRequest()
         resetRequest.setUri(device.uri);
-        client.resetSystem(resetRequest, {}, res => {
-            console.log("response", res);
-        })
+        client.resetSystem(resetRequest)
     }
 
 </script>

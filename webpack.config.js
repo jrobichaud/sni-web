@@ -51,5 +51,13 @@ module.exports = {
       filename: "[name].css"
     })
   ],
+  devServer: {
+    proxy: {
+      '/sni': {
+        target: 'http://retro-controller.local',
+        changeOrigin: true,
+      }
+    },
+  },
   devtool: prod ? false : "source-map"
 };

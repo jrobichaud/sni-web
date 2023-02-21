@@ -644,7 +644,6 @@ DeviceFilesystemClient.prototype.readDirectory = function readDirectory(requestM
     transport: this.options.transport,
     debug: this.options.debug,
     onEnd: function (response) {
-      console.log("response", response)
       if (callback) {
         if (response.status !== grpc.Code.OK) {
           var err = new Error(response.statusMessage);
