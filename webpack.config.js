@@ -56,6 +56,10 @@ module.exports = {
       '/sni': {
         target: 'http://retro-controller.local',
         changeOrigin: true,
+      },
+      '/zt': {
+        target: 'http://retro-controller.local',
+        changeOrigin: true,
       }
     },
   },

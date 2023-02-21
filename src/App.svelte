@@ -1,5 +1,5 @@
 <script>
-    import Button from '@smui/button';
+    import Button, {Label} from '@smui/button';
     import {grpc} from "@improbable-eng/grpc-web";
 
     import {
@@ -86,10 +86,13 @@
     {#if device}
         <div>
             <Button variant="outlined" on:click={resetMenu}>
-                Reset Menu
+                <Label>Reset Menu</Label>
             </Button>
             <Button variant="outlined" on:click={resetSystem}>
-                Reset System
+                <Label>Reset System</Label>
+            </Button>
+            <Button variant="outlined" href="/zt/">
+                <Label>Alttpr</Label>
             </Button>
         </div>
         <div>
