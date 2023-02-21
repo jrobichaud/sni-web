@@ -30,7 +30,6 @@
                 const {status, statusMessage, headers, message, trailers} = res;
                 console.log("response", res);
                 if (status === grpc.Code.OK && message) {
-                    console.log("all ok. got devices: ", message.toObject());
                     devices = message.toObject().devicesList;
                     if (devices[0]) {
                         device = devices[0];
@@ -89,8 +88,6 @@
             <Button variant="outlined" on:click={resetMenu}>
                 Reset Menu
             </Button>
-        </div>
-        <div>
             <Button variant="outlined" on:click={resetSystem}>
                 Reset System
             </Button>

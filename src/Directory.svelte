@@ -3,6 +3,7 @@
     import IconButton from '@smui/icon-button';
     import {DirEntryType, PutFileRequest, ReadDirectoryRequest} from "./sni-client/sni_pb";
     import File from "./File.svelte";
+    import CircularProgress from '@smui/circular-progress';
 
     export let directory;
     export let fileSystemClient;
@@ -28,8 +29,12 @@
             request.setData(new Uint8Array(e.target.result) )
             fileSystemClient.putFile(request, (err, res) => {
                 loadFiles();
+                files = null;
             })
         };
+        fileReader.onerror = function () {
+            files = null;
+        }
         fileReader.readAsArrayBuffer(file);
     }
 
@@ -83,6 +88,7 @@
     }
 </style>
 
+
 <input class="hidden" id="file-to-upload" type="file" accept=".smc,.sfc" bind:files bind:this={fileInput}
        on:change={uploadFiles}/>
 <Item wrapper>
@@ -98,7 +104,7 @@
     <List class="sub-list">
         {#await promise}
             <Item style="padding-left: {(indent+1)*24}px">
-                <Text>...</Text>
+                <CircularProgress style="height: 32px; width: 32px;" indeterminate />
             </Item>
         {:then entries}
             {#if entries}

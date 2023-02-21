@@ -43,7 +43,6 @@
         aria-labelledby="simple-title"
         aria-describedby="simple-content"
 >
-    <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
     <Title id="simple-title">Delete?</Title>
     <Content id="simple-content">{fullpath}</Content>
     <Actions>
