@@ -118,7 +118,7 @@
         </div>
         <div class="container" style="flex-direction: row; justify-content:center">
             <Button variant="outlined" href="/zt/" target="_blank" n>
-                <Icon class="material-icons">restart_alt</Icon>
+                <Icon class="material-icons">change_history</Icon>
                 <Label>&nbsp;Alttpr</Label>
             </Button>
         </div>
