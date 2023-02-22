@@ -4,6 +4,7 @@
     import {DirEntryType, PutFileRequest, ReadDirectoryRequest} from "./sni-client/sni_pb";
     import File from "./File.svelte";
     import CircularProgress from '@smui/circular-progress';
+    import Icon from "@smui/select/icon";
 
     export let directory;
     export let fileSystemClient;
@@ -93,7 +94,8 @@
        on:change={uploadFiles}/>
 <Item wrapper>
     <Item style="padding-left: {indent*24}px" on:SMUI:action={()=>expanded = !expanded}>
-        <Text>{directory.name}</Text>
+        <Icon class="material-icons">folder</Icon>
+        <Text>&nbsp;{directory.name}</Text>
         <span class="add">
             <IconButton class="material-icons" on:click={(event) => {event.stopPropagation(); fileInput.click()}}>
                 add

@@ -12,6 +12,9 @@
     import Select from "@smui/select/index";
     import {Option} from "@smui/select";
     import FileBrowser from "./FileBrowser.svelte";
+    import CircularProgress from "@smui/circular-progress";
+    import IconButton from "@smui/icon-button";
+    import Icon from "@smui/select/icon";
 
     let url = "/sni";
     let devices;
@@ -20,28 +23,33 @@
 
     $: url, loadDevices()
 
+    let promise;
+
     function loadDevices() {
         client = new DeviceControlClient(url);
         const req = new DevicesRequest();
-        grpc.unary(Devices.ListDevices, {
-            request: req,
-            host: url,
-            onEnd: res => {
-                const {status, statusMessage, headers, message, trailers} = res;
-                console.log("response", res);
-                if (status === grpc.Code.OK && message) {
-                    devices = message.toObject().devicesList;
-                    if (devices[0]) {
-                        device = devices[0];
+        promise = new Promise((resolve) => {
+            grpc.unary(Devices.ListDevices, {
+                request: req,
+                host: url,
+                onEnd: res => {
+                    const {status, statusMessage, headers, message, trailers} = res;
+                    if (status === grpc.Code.OK && message) {
+                        devices = message.toObject().devicesList;
+                        if (devices[0]) {
+                            device = devices[0];
+                        } else {
+                            device = null;
+                        }
                     } else {
+                        devices = null;
                         device = null;
                     }
-                } else {
-                    devices = null;
-                    device = null;
+
+                    resolve(devices)
                 }
-            }
-        });
+            });
+        })
     }
 
 
@@ -63,19 +71,33 @@
 
 </script>
 
-<div>
-    <Textfield
-        variant="outlined"
-        bind:value={url}
-        label="SNI url"
-        style="width: 100%;"
-        helperLine$style="width: 100%;"
-    >
-        <HelperText slot="helper">Enter the url of the SNI service</HelperText>
-    </Textfield>
-</div>
+<style>
+    .container {
+        display: flex;
+    }
+</style>
 
-{#if devices}
+<div class="container" style="flex-direction: row; justify-content:flex-start">
+    <div style="flex-grow: 1">
+        <Textfield
+                variant="outlined"
+                bind:value={url}
+                label="SNI url"
+                style="width: 100%;"
+                helperLine$style="width: 100%;"
+        >
+            <HelperText slot="helper">Enter the url of the SNI service</HelperText>
+        </Textfield>
+    </div>
+    <div>
+        <IconButton class="material-icons" on:click={loadDevices}>
+            refresh
+        </IconButton>
+    </div>
+</div>
+{#await promise}
+    <CircularProgress style="height: 32px; width: 32px;" indeterminate/>
+{:then devices}
     <div>
         <Select variant="filled" bind:value={device} label="Device" style="width: 100%;">
             {#each devices as d}
@@ -84,20 +106,25 @@
         </Select>
     </div>
     {#if device}
-        <div>
+        <div class="container" style="flex-direction: row; justify-content:center">
             <Button variant="outlined" on:click={resetMenu}>
-                <Label>Reset Menu</Label>
+                <Icon class="material-icons">home</Icon>
+                <Label>&nbsp;Menu</Label>
             </Button>
             <Button variant="outlined" on:click={resetSystem}>
-                <Label>Reset System</Label>
+                <Icon class="material-icons">restart_alt</Icon>
+                <Label>&nbsp;Reset Game</Label>
             </Button>
-            <Button variant="outlined" href="/zt/">
-                <Label>Alttpr</Label>
+        </div>
+        <div class="container" style="flex-direction: row; justify-content:center">
+            <Button variant="outlined" href="/zt/" target="_blank" n>
+                <Icon class="material-icons">restart_alt</Icon>
+                <Label>&nbsp;Alttpr</Label>
             </Button>
         </div>
         <div>
-        <FileBrowser device={device} url={url}></FileBrowser>
+            <FileBrowser device={device} url={url}></FileBrowser>
         </div>
     {/if}
-{/if}
+{/await}
 

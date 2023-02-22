@@ -4,6 +4,7 @@
     import {BootFileRequest, RemoveFileRequest} from "./sni-client/sni_pb";
     import IconButton from "@smui/icon-button";
     import Button, { Label } from '@smui/button';
+    import Icon from "@smui/select/icon";
 
     export let name;
     export let indent;
@@ -56,7 +57,8 @@
 </Dialog>
 
 <Item style="padding-left: {(indent+1)*24}px" on:SMUI:action={onClick}>
-    <Text>{name}</Text>
+    <Icon class="material-icons">videogame_asset</Icon>
+    <Text>&nbsp;{name}</Text>
     <span class="delete">
             <IconButton class="material-icons" on:click={(event) => {event.stopPropagation(); open=true;}}>
                 delete
