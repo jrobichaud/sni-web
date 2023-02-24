@@ -7,6 +7,7 @@
         Devices,
     } from "./sni-client/sni_pb_service";
     import {DevicesRequest, ResetSystemRequest, ResetToMenuRequest} from "./sni-client/sni_pb";
+    import { onMount } from "svelte";
     import Textfield from "@smui/textfield/index";
     import HelperText from "@smui/textfield/helper-text";
     import Select from "@smui/select/index";
@@ -15,6 +16,7 @@
     import CircularProgress from "@smui/circular-progress";
     import IconButton from "@smui/icon-button";
     import Icon from "@smui/select/icon";
+    import {sprites} from "./store";
 
     let url = "/sni";
     let devices;
@@ -24,6 +26,17 @@
     $: url, loadDevices()
 
     let promise;
+
+    onMount(()=> {
+        fetch("/pyz3r/alttpr/sprites")
+            .then(response => response.json())
+            .then(data => {
+                sprites.set(data);
+            }).catch(error => {
+            console.log(error);
+            return [];
+        });
+    })
 
     function loadDevices() {
         client = new DeviceControlClient(url);

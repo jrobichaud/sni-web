@@ -60,6 +60,10 @@ module.exports = {
       '/zt': {
         target: 'http://retro-controller.local',
         changeOrigin: true,
+      },
+      '/pyz3r': {
+        target: 'http://retro-controller.local',
+        changeOrigin: true,
       }
     },
   },
