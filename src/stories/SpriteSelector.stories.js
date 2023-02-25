@@ -21,22 +21,22 @@ sprites.set(
             ],
             "version": 1
         },
-    ],
-    {
-        "author": "RoPan",
-        "file": "https://alttpr-assets.s3.us-east-2.amazonaws.com/peach.1.zspr",
-        "name": "Princess Peach",
-        "preview": "https://alttpr-assets.s3.us-east-2.amazonaws.com/peach.1.zspr.png",
-        "tags": [
-            "Mario",
-            "Princess",
-            "Female"
-        ],
-        "usage": [
-            "smz3"
-        ],
-        "version": 1
-    }
+        {
+            "author": "RoPan",
+            "file": "https://alttpr-assets.s3.us-east-2.amazonaws.com/peach.1.zspr",
+            "name": "Princess Peach",
+            "preview": "https://alttpr-assets.s3.us-east-2.amazonaws.com/peach.1.zspr.png",
+            "tags": [
+                "Mario",
+                "Princess",
+                "Female"
+            ],
+            "usage": [
+                "smz3"
+            ],
+            "version": 1
+        }
+    ]
 )
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export

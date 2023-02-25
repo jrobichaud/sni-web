@@ -12,6 +12,11 @@
     :global(.loading > .mdc-dialog__container > .mdc-dialog__surface::-webkit-scrollbar) {
         display: none;
     }
+
+    :global(.loading > .mdc-dialog__container > .mdc-dialog__surface > .mdc-dialog__content) {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
 </style>
 
 <Dialog
