@@ -1,5 +1,5 @@
 <script>
-    import Button, {Label} from '@smui/button';
+    import Button, {Label, Icon} from '@smui/button';
     import {grpc} from "@improbable-eng/grpc-web";
 
     import {
@@ -15,7 +15,6 @@
     import FileBrowser from "./FileBrowser.svelte";
     import CircularProgress from "@smui/circular-progress";
     import IconButton from "@smui/icon-button";
-    import Icon from "@smui/select/icon";
     import {sprites} from "./store";
 
     let url = "/sni";

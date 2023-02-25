@@ -1,10 +1,9 @@
 <script>
-    import List, {Item, Text} from "@smui/list";
+    import List, {Item, Text, Graphic} from "@smui/list";
     import IconButton from '@smui/icon-button';
     import {DirEntryType, PutFileRequest, ReadDirectoryRequest} from "./sni-client/sni_pb";
     import File from "./File.svelte";
     import CircularProgress from '@smui/circular-progress';
-    import Icon from "@smui/select/icon";
     import Dialog, {Actions, Content, Title} from "@smui/dialog";
     import Button, {Label} from "@smui/button";
     import SpriteSelector from "./SpriteSelector.svelte";
@@ -158,9 +157,6 @@
     position: absolute;
     right: 0;
   }
-  .big-modal {
-    height: 100%;
-  }
 
     :global(.daily .mdc-dialog__surface) {
       min-height: 400px;
@@ -194,7 +190,7 @@
        on:change={uploadFiles}/>
 <Item wrapper>
     <Item style="padding-left: {indent*24}px" on:SMUI:action={()=>expanded = !expanded}>
-        <Icon class="material-icons">folder</Icon>
+        <Graphic class="material-icons">folder</Graphic>
         <Text>&nbsp;{directory.name}</Text>
         <span class="right">
             <span>

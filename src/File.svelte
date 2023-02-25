@@ -1,10 +1,9 @@
 <script>
-    import {Item, Text} from "@smui/list";
+    import {Item, Text, Graphic} from "@smui/list";
     import Dialog, { Title, Content, Actions } from '@smui/dialog';
     import {BootFileRequest, RemoveFileRequest} from "./sni-client/sni_pb";
     import IconButton from "@smui/icon-button";
     import Button, { Label } from '@smui/button';
-    import Icon from "@smui/select/icon";
 
     export let name;
     export let indent;
@@ -57,8 +56,8 @@
 </Dialog>
 
 <Item style="padding-left: {(indent+1)*24}px" on:SMUI:action={onClick}>
-    <Icon class="material-icons">videogame_asset</Icon>
-    <Text>&nbsp;{name}</Text>
+    <Graphic class="material-icons">videogame_asset</Graphic>
+    <Text>{name}</Text>
     <span class="delete">
             <IconButton class="material-icons" on:click={(event) => {event.stopPropagation(); open=true;}}>
                 delete
