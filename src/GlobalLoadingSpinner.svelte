@@ -5,11 +5,11 @@
 </script>
 
 <style lang="scss">
-    :global(.loading .mdc-dialog__surface) {
+    :global(.loading > .mdc-dialog__container > .mdc-dialog__surface) {
         min-width: 0;
     }
 
-    :global(.loading .mdc-dialog__surface::-webkit-scrollbar) {
+    :global(.loading > .mdc-dialog__container > .mdc-dialog__surface::-webkit-scrollbar) {
         display: none;
     }
 </style>
