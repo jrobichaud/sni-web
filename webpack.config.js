@@ -13,7 +13,8 @@ module.exports = {
       svelte: path.resolve("node_modules", "svelte")
     },
     extensions: [".mjs", ".js", ".svelte"],
-    mainFields: ["svelte", "browser", "module", "main"]
+    mainFields: ["svelte", "browser", "module", "main"],
+    conditionNames: ['svelte']
   },
   output: {
     path: __dirname + "/public",

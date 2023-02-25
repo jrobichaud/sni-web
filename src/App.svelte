@@ -8,9 +8,9 @@
     } from "./sni-client/sni_pb_service";
     import {DevicesRequest, ResetSystemRequest, ResetToMenuRequest} from "./sni-client/sni_pb";
     import { onMount } from "svelte";
-    import Textfield from "@smui/textfield/index";
+    import Textfield from "@smui/textfield";
     import HelperText from "@smui/textfield/helper-text";
-    import Select from "@smui/select/index";
+    import Select from "@smui/select";
     import {Option} from "@smui/select";
     import FileBrowser from "./FileBrowser.svelte";
     import CircularProgress from "@smui/circular-progress";

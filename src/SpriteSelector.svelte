@@ -1,5 +1,5 @@
 <script>
-    import Select from "@smui/select/index";
+    import Select from "@smui/select";
     import {Option} from "@smui/select";
     import {sprites, selectedSprite} from "./store";
     import {onMount} from "svelte";
