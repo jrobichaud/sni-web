@@ -158,18 +158,26 @@
     position: absolute;
     right: 0;
   }
+  .big-modal {
+    height: 100%;
+  }
+
+    :global(.daily .mdc-dialog__surface) {
+      min-height: 400px;
+    }
 </style>
 
 <GlobalLoadingSpinner isLoading={loading} />
 
 <Dialog
         bind:open={dailyOpen}
+        class="daily"
         aria-labelledby="daily-title"
         aria-describedby="daily-content"
 >
     <Title id="daily-title">Daily</Title>
-    <Content id="daily-content">
-            <SpriteSelector bind:selected={selectedSprite}></SpriteSelector>
+    <Content id="daily-content" >
+        <SpriteSelector bind:selected={selectedSprite}></SpriteSelector>
     </Content>
     <Actions>
         <Button on:click={() => (dailyOpen = false)}>
