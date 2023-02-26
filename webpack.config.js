@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 
 const mode = process.env.NODE_ENV || "development";
 const prod = mode === "production";
@@ -50,6 +51,14 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: "[name].css"
+    }),
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: [
+        "*.LICENSE.txt",
+        '!**/*',
+      ],
+      protectWebpackAssets: false,
+      cleanAfterEveryBuildPatterns: ['*.LICENSE.txt'],
     })
   ],
   devServer: {

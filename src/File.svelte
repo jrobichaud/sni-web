@@ -59,7 +59,7 @@
     <Graphic class="material-icons">videogame_asset</Graphic>
     <Text>{name}</Text>
     <span class="delete">
-            <IconButton class="material-icons" on:click={(event) => {event.stopPropagation(); open=true;}}>
+            <IconButton class="material-icons" on:click$stopPropagation={() => open=true}>
                 delete
             </IconButton>
         </span>

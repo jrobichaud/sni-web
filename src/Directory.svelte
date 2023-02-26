@@ -194,12 +194,12 @@
         <Text>&nbsp;{directory.name}</Text>
         <span class="right">
             <span>
-            <IconButton class="material-icons" on:click={(event) => {event.stopPropagation(); dailyOpen=true;}}>
+            <IconButton class="material-icons" on:click$stopPropagation={() => dailyOpen=true}>
                 event_repeat
             </IconButton>
             </span>
             <span>
-            <IconButton class="material-icons" on:click={(event) => {event.stopPropagation(); fileInput.click()}}>
+            <IconButton class="material-icons" on:click$stopPropagation={() => fileInput.click()}>
                 add
             </IconButton>
             </span>

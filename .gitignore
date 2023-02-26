@@ -1,2 +1,6 @@
 /.idea/
 /node_modules/
+/public/bundle.css
+/public/bundle.js
+/public/smui.css
+/public/smui-dark.css

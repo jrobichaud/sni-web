@@ -1,3 +1,13 @@
+<svelte:head>
+    <link rel="stylesheet" href="/smui.css" media="(prefers-color-scheme: light)" />
+    <link
+            rel="stylesheet"
+            href="/smui-dark.css"
+            media="screen and (prefers-color-scheme: dark)"
+    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+</svelte:head>
+
 <script>
     import Button, {Label, Icon} from '@smui/button';
     import {grpc} from "@improbable-eng/grpc-web";
@@ -129,7 +139,7 @@
             </Button>
         </div>
         <div class="container" style="flex-direction: row; justify-content:center">
-            <Button variant="outlined" href="/zt/" target="_blank" n>
+            <Button variant="outlined" href="/zt/" target="_blank">
                 <Icon class="material-icons">change_history</Icon>
                 <Label>&nbsp;Alttpr</Label>
             </Button>
