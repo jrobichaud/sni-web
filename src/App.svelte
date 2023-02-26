@@ -25,11 +25,10 @@
     import FileBrowser from "./FileBrowser.svelte";
     import CircularProgress from "@smui/circular-progress";
     import IconButton from "@smui/icon-button";
-    import {sprites} from "./store";
+    import {sprites, device} from "./store";
 
     let url = "/sni";
     let devices;
-    let device;
     let client;
 
     $: url, loadDevices()
@@ -59,13 +58,13 @@
                     if (status === grpc.Code.OK && message) {
                         devices = message.toObject().devicesList;
                         if (devices[0]) {
-                            device = devices[0];
+                            device.set(devices[0]);
                         } else {
-                            device = null;
+                            device.set(null);
                         }
                     } else {
                         devices = null;
-                        device = null;
+                        device.set(null);
                     }
 
                     resolve(devices)
@@ -79,7 +78,7 @@
         if (!client)
             return;
         let resetRequest = new ResetToMenuRequest()
-        resetRequest.setUri(device.uri);
+        resetRequest.setUri($device.uri);
         client.resetToMenu(resetRequest)
     }
 
@@ -87,7 +86,7 @@
         if (!client)
             return;
         let resetRequest = new ResetSystemRequest()
-        resetRequest.setUri(device.uri);
+        resetRequest.setUri($device.uri);
         client.resetSystem(resetRequest)
     }
 
@@ -121,13 +120,15 @@
     <CircularProgress style="height: 32px; width: 32px;" indeterminate/>
 {:then devices}
     <div>
-        <Select variant="filled" bind:value={device} label="Device" style="width: 100%;">
-            {#each devices as d}
-                <Option value={d}>{d.kind}@{d.displayname}</Option>
-            {/each}
+        <Select variant="filled" bind:value={$device} label="Device" style="width: 100%;">
+            {#if devices}
+                {#each devices as d}
+                    <Option value={d}>{d.kind}@{d.displayname}</Option>
+                {/each}
+            {/if}
         </Select>
     </div>
-    {#if device}
+    {#if $device}
         <div class="container" style="flex-direction: row; justify-content:center">
             <Button variant="outlined" on:click={resetMenu}>
                 <Icon class="material-icons">home</Icon>
@@ -145,7 +146,7 @@
             </Button>
         </div>
         <div>
-            <FileBrowser device={device} url={url}></FileBrowser>
+            <FileBrowser url={url}></FileBrowser>
         </div>
     {/if}
 {/await}

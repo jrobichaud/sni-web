@@ -4,19 +4,21 @@
     import List from '@smui/list';
     import Directory from "./Directory.svelte";
 
-    import {fileSystemClient} from './store';
+    import {fileSystemClient, device} from './store';
+    import {onMount} from "svelte";
 
     export let url;
-    export let device;
     let root;
-    $: device, root = {name: "/", type: DirEntryType.DIRECTORY, fullpath: "/"}
+    $: $device, root = {name: "/", type: DirEntryType.DIRECTORY, fullpath: "/"}
 
-    fileSystemClient.set(new DeviceFilesystemClient(url));
+    onMount(()=>{
+        fileSystemClient.set(new DeviceFilesystemClient(url));
+    })
 
 </script>
 
 <List>
-    {#if device && root}
-        <Directory directory={root} device={device} indent={0} expanded/>
+    {#if $device && $fileSystemClient && root}
+        <Directory directory={root} indent={0} expanded/>
     {/if}
 </List>

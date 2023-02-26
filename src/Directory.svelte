@@ -8,10 +8,9 @@
     import Button, {Label} from "@smui/button";
     import SpriteSelector from "./SpriteSelector.svelte";
     import GlobalLoadingSpinner from "./GlobalLoadingSpinner.svelte";
-    import {fileSystemClient} from "./store";
+    import {fileSystemClient, device} from "./store";
 
     export let directory;
-    export let device;
     export let indent;
     export let expanded = false;
     let fileInput;
@@ -29,7 +28,7 @@
     function saveFile(path, bytes) {
         return new Promise(resolve => {
             let request = new PutFileRequest();
-            request.setUri(device.uri)
+            request.setUri($device.uri)
             request.setPath(path);
             request.setData(new Uint8Array(bytes))
             $fileSystemClient.putFile(request, (err, res) => {
@@ -65,11 +64,11 @@
     }
 
     function loadFiles() {
-        if (!$fileSystemClient || !device)
+        if (!$fileSystemClient || !$device)
             return;
 
         const request = new ReadDirectoryRequest()
-        request.setUri(device.uri);
+        request.setUri($device.uri);
         request.setPath(directory.fullpath)
         promise = new Promise(resolve => {
             $fileSystemClient.readDirectory(request, {}, (err, res) => {
@@ -219,14 +218,13 @@
                         <svelte:self
                                 style="padding-left: {(indent+1)*24}px"
                                 directory={child}
-                                device={device}
                                 indent={indent+1}
                                 parent={child.fullpath}
                         />
                     {/if}
                     {#if child.type === DirEntryType.FILE && child.name.match(/^(?!\._).*\.(smc|sfc)$/)}
                         <File name={child.name} indent={indent+1}
-                              device={device} fullpath={child.fullpath}
+                              fullpath={child.fullpath}
                               reloadParent={reload}
                         />
                     {/if}

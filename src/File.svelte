@@ -5,11 +5,10 @@
     import IconButton from "@smui/icon-button";
     import Button, { Label } from '@smui/button';
 
-    import {fileSystemClient} from "./store"
+    import {fileSystemClient, device} from "./store"
 
     export let name;
     export let indent;
-    export let device;
     export let fullpath;
     export let reloadParent;
 
@@ -17,13 +16,13 @@
 
     function onClick() {
         let request = new BootFileRequest();
-        request.setUri(device.uri);
+        request.setUri($device.uri);
         request.setPath(fullpath);
         $fileSystemClient.bootFile(request)
     }
     function deleteFile() {
         let request = new RemoveFileRequest();
-        request.setUri(device.uri)
+        request.setUri($device.uri)
         request.setPath(fullpath);
         open = false;
         $fileSystemClient.removeFile(request, (err, res)=> {
