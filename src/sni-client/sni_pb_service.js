@@ -8,7 +8,7 @@ var Devices = (function () {
   function Devices() {}
   Devices.serviceName = "Devices";
   return Devices;
-}());
+})();
 
 Devices.ListDevices = {
   methodName: "ListDevices",
@@ -16,7 +16,7 @@ Devices.ListDevices = {
   requestStream: false,
   responseStream: false,
   requestType: sni_pb.DevicesRequest,
-  responseType: sni_pb.DevicesResponse
+  responseType: sni_pb.DevicesResponse,
 };
 
 exports.Devices = Devices;
@@ -26,7 +26,11 @@ function DevicesClient(serviceHost, options) {
   this.options = options || {};
 }
 
-DevicesClient.prototype.listDevices = function listDevices(requestMessage, metadata, callback) {
+DevicesClient.prototype.listDevices = function listDevices(
+  requestMessage,
+  metadata,
+  callback
+) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
@@ -47,13 +51,13 @@ DevicesClient.prototype.listDevices = function listDevices(requestMessage, metad
           callback(null, response.message);
         }
       }
-    }
+    },
   });
   return {
     cancel: function () {
       callback = null;
       client.close();
-    }
+    },
   };
 };
 
@@ -63,7 +67,7 @@ var DeviceControl = (function () {
   function DeviceControl() {}
   DeviceControl.serviceName = "DeviceControl";
   return DeviceControl;
-}());
+})();
 
 DeviceControl.ResetSystem = {
   methodName: "ResetSystem",
@@ -71,7 +75,7 @@ DeviceControl.ResetSystem = {
   requestStream: false,
   responseStream: false,
   requestType: sni_pb.ResetSystemRequest,
-  responseType: sni_pb.ResetSystemResponse
+  responseType: sni_pb.ResetSystemResponse,
 };
 
 DeviceControl.ResetToMenu = {
@@ -80,7 +84,7 @@ DeviceControl.ResetToMenu = {
   requestStream: false,
   responseStream: false,
   requestType: sni_pb.ResetToMenuRequest,
-  responseType: sni_pb.ResetToMenuResponse
+  responseType: sni_pb.ResetToMenuResponse,
 };
 
 DeviceControl.PauseUnpauseEmulation = {
@@ -89,7 +93,7 @@ DeviceControl.PauseUnpauseEmulation = {
   requestStream: false,
   responseStream: false,
   requestType: sni_pb.PauseEmulationRequest,
-  responseType: sni_pb.PauseEmulationResponse
+  responseType: sni_pb.PauseEmulationResponse,
 };
 
 DeviceControl.PauseToggleEmulation = {
@@ -98,7 +102,7 @@ DeviceControl.PauseToggleEmulation = {
   requestStream: false,
   responseStream: false,
   requestType: sni_pb.PauseToggleEmulationRequest,
-  responseType: sni_pb.PauseToggleEmulationResponse
+  responseType: sni_pb.PauseToggleEmulationResponse,
 };
 
 exports.DeviceControl = DeviceControl;
@@ -108,7 +112,11 @@ function DeviceControlClient(serviceHost, options) {
   this.options = options || {};
 }
 
-DeviceControlClient.prototype.resetSystem = function resetSystem(requestMessage, metadata, callback) {
+DeviceControlClient.prototype.resetSystem = function resetSystem(
+  requestMessage,
+  metadata,
+  callback
+) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
@@ -129,17 +137,21 @@ DeviceControlClient.prototype.resetSystem = function resetSystem(requestMessage,
           callback(null, response.message);
         }
       }
-    }
+    },
   });
   return {
     cancel: function () {
       callback = null;
       client.close();
-    }
+    },
   };
 };
 
-DeviceControlClient.prototype.resetToMenu = function resetToMenu(requestMessage, metadata, callback) {
+DeviceControlClient.prototype.resetToMenu = function resetToMenu(
+  requestMessage,
+  metadata,
+  callback
+) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
@@ -160,77 +172,79 @@ DeviceControlClient.prototype.resetToMenu = function resetToMenu(requestMessage,
           callback(null, response.message);
         }
       }
-    }
+    },
   });
   return {
     cancel: function () {
       callback = null;
       client.close();
-    }
+    },
   };
 };
 
-DeviceControlClient.prototype.pauseUnpauseEmulation = function pauseUnpauseEmulation(requestMessage, metadata, callback) {
-  if (arguments.length === 2) {
-    callback = arguments[1];
-  }
-  var client = grpc.unary(DeviceControl.PauseUnpauseEmulation, {
-    request: requestMessage,
-    host: this.serviceHost,
-    metadata: metadata,
-    transport: this.options.transport,
-    debug: this.options.debug,
-    onEnd: function (response) {
-      if (callback) {
-        if (response.status !== grpc.Code.OK) {
-          var err = new Error(response.statusMessage);
-          err.code = response.status;
-          err.metadata = response.trailers;
-          callback(err, null);
-        } else {
-          callback(null, response.message);
+DeviceControlClient.prototype.pauseUnpauseEmulation =
+  function pauseUnpauseEmulation(requestMessage, metadata, callback) {
+    if (arguments.length === 2) {
+      callback = arguments[1];
+    }
+    var client = grpc.unary(DeviceControl.PauseUnpauseEmulation, {
+      request: requestMessage,
+      host: this.serviceHost,
+      metadata: metadata,
+      transport: this.options.transport,
+      debug: this.options.debug,
+      onEnd: function (response) {
+        if (callback) {
+          if (response.status !== grpc.Code.OK) {
+            var err = new Error(response.statusMessage);
+            err.code = response.status;
+            err.metadata = response.trailers;
+            callback(err, null);
+          } else {
+            callback(null, response.message);
+          }
         }
-      }
-    }
-  });
-  return {
-    cancel: function () {
-      callback = null;
-      client.close();
-    }
+      },
+    });
+    return {
+      cancel: function () {
+        callback = null;
+        client.close();
+      },
+    };
   };
-};
 
-DeviceControlClient.prototype.pauseToggleEmulation = function pauseToggleEmulation(requestMessage, metadata, callback) {
-  if (arguments.length === 2) {
-    callback = arguments[1];
-  }
-  var client = grpc.unary(DeviceControl.PauseToggleEmulation, {
-    request: requestMessage,
-    host: this.serviceHost,
-    metadata: metadata,
-    transport: this.options.transport,
-    debug: this.options.debug,
-    onEnd: function (response) {
-      if (callback) {
-        if (response.status !== grpc.Code.OK) {
-          var err = new Error(response.statusMessage);
-          err.code = response.status;
-          err.metadata = response.trailers;
-          callback(err, null);
-        } else {
-          callback(null, response.message);
+DeviceControlClient.prototype.pauseToggleEmulation =
+  function pauseToggleEmulation(requestMessage, metadata, callback) {
+    if (arguments.length === 2) {
+      callback = arguments[1];
+    }
+    var client = grpc.unary(DeviceControl.PauseToggleEmulation, {
+      request: requestMessage,
+      host: this.serviceHost,
+      metadata: metadata,
+      transport: this.options.transport,
+      debug: this.options.debug,
+      onEnd: function (response) {
+        if (callback) {
+          if (response.status !== grpc.Code.OK) {
+            var err = new Error(response.statusMessage);
+            err.code = response.status;
+            err.metadata = response.trailers;
+            callback(err, null);
+          } else {
+            callback(null, response.message);
+          }
         }
-      }
-    }
-  });
-  return {
-    cancel: function () {
-      callback = null;
-      client.close();
-    }
+      },
+    });
+    return {
+      cancel: function () {
+        callback = null;
+        client.close();
+      },
+    };
   };
-};
 
 exports.DeviceControlClient = DeviceControlClient;
 
@@ -238,7 +252,7 @@ var DeviceMemory = (function () {
   function DeviceMemory() {}
   DeviceMemory.serviceName = "DeviceMemory";
   return DeviceMemory;
-}());
+})();
 
 DeviceMemory.MappingDetect = {
   methodName: "MappingDetect",
@@ -246,7 +260,7 @@ DeviceMemory.MappingDetect = {
   requestStream: false,
   responseStream: false,
   requestType: sni_pb.DetectMemoryMappingRequest,
-  responseType: sni_pb.DetectMemoryMappingResponse
+  responseType: sni_pb.DetectMemoryMappingResponse,
 };
 
 DeviceMemory.SingleRead = {
@@ -255,7 +269,7 @@ DeviceMemory.SingleRead = {
   requestStream: false,
   responseStream: false,
   requestType: sni_pb.SingleReadMemoryRequest,
-  responseType: sni_pb.SingleReadMemoryResponse
+  responseType: sni_pb.SingleReadMemoryResponse,
 };
 
 DeviceMemory.SingleWrite = {
@@ -264,7 +278,7 @@ DeviceMemory.SingleWrite = {
   requestStream: false,
   responseStream: false,
   requestType: sni_pb.SingleWriteMemoryRequest,
-  responseType: sni_pb.SingleWriteMemoryResponse
+  responseType: sni_pb.SingleWriteMemoryResponse,
 };
 
 DeviceMemory.MultiRead = {
@@ -273,7 +287,7 @@ DeviceMemory.MultiRead = {
   requestStream: false,
   responseStream: false,
   requestType: sni_pb.MultiReadMemoryRequest,
-  responseType: sni_pb.MultiReadMemoryResponse
+  responseType: sni_pb.MultiReadMemoryResponse,
 };
 
 DeviceMemory.MultiWrite = {
@@ -282,7 +296,7 @@ DeviceMemory.MultiWrite = {
   requestStream: false,
   responseStream: false,
   requestType: sni_pb.MultiWriteMemoryRequest,
-  responseType: sni_pb.MultiWriteMemoryResponse
+  responseType: sni_pb.MultiWriteMemoryResponse,
 };
 
 DeviceMemory.StreamRead = {
@@ -291,7 +305,7 @@ DeviceMemory.StreamRead = {
   requestStream: true,
   responseStream: true,
   requestType: sni_pb.MultiReadMemoryRequest,
-  responseType: sni_pb.MultiReadMemoryResponse
+  responseType: sni_pb.MultiReadMemoryResponse,
 };
 
 DeviceMemory.StreamWrite = {
@@ -300,7 +314,7 @@ DeviceMemory.StreamWrite = {
   requestStream: true,
   responseStream: true,
   requestType: sni_pb.MultiWriteMemoryRequest,
-  responseType: sni_pb.MultiWriteMemoryResponse
+  responseType: sni_pb.MultiWriteMemoryResponse,
 };
 
 exports.DeviceMemory = DeviceMemory;
@@ -310,7 +324,11 @@ function DeviceMemoryClient(serviceHost, options) {
   this.options = options || {};
 }
 
-DeviceMemoryClient.prototype.mappingDetect = function mappingDetect(requestMessage, metadata, callback) {
+DeviceMemoryClient.prototype.mappingDetect = function mappingDetect(
+  requestMessage,
+  metadata,
+  callback
+) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
@@ -331,17 +349,21 @@ DeviceMemoryClient.prototype.mappingDetect = function mappingDetect(requestMessa
           callback(null, response.message);
         }
       }
-    }
+    },
   });
   return {
     cancel: function () {
       callback = null;
       client.close();
-    }
+    },
   };
 };
 
-DeviceMemoryClient.prototype.singleRead = function singleRead(requestMessage, metadata, callback) {
+DeviceMemoryClient.prototype.singleRead = function singleRead(
+  requestMessage,
+  metadata,
+  callback
+) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
@@ -362,17 +384,21 @@ DeviceMemoryClient.prototype.singleRead = function singleRead(requestMessage, me
           callback(null, response.message);
         }
       }
-    }
+    },
   });
   return {
     cancel: function () {
       callback = null;
       client.close();
-    }
+    },
   };
 };
 
-DeviceMemoryClient.prototype.singleWrite = function singleWrite(requestMessage, metadata, callback) {
+DeviceMemoryClient.prototype.singleWrite = function singleWrite(
+  requestMessage,
+  metadata,
+  callback
+) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
@@ -393,17 +419,21 @@ DeviceMemoryClient.prototype.singleWrite = function singleWrite(requestMessage, 
           callback(null, response.message);
         }
       }
-    }
+    },
   });
   return {
     cancel: function () {
       callback = null;
       client.close();
-    }
+    },
   };
 };
 
-DeviceMemoryClient.prototype.multiRead = function multiRead(requestMessage, metadata, callback) {
+DeviceMemoryClient.prototype.multiRead = function multiRead(
+  requestMessage,
+  metadata,
+  callback
+) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
@@ -424,17 +454,21 @@ DeviceMemoryClient.prototype.multiRead = function multiRead(requestMessage, meta
           callback(null, response.message);
         }
       }
-    }
+    },
   });
   return {
     cancel: function () {
       callback = null;
       client.close();
-    }
+    },
   };
 };
 
-DeviceMemoryClient.prototype.multiWrite = function multiWrite(requestMessage, metadata, callback) {
+DeviceMemoryClient.prototype.multiWrite = function multiWrite(
+  requestMessage,
+  metadata,
+  callback
+) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
@@ -455,13 +489,13 @@ DeviceMemoryClient.prototype.multiWrite = function multiWrite(requestMessage, me
           callback(null, response.message);
         }
       }
-    }
+    },
   });
   return {
     cancel: function () {
       callback = null;
       client.close();
-    }
+    },
   };
 };
 
@@ -469,12 +503,12 @@ DeviceMemoryClient.prototype.streamRead = function streamRead(metadata) {
   var listeners = {
     data: [],
     end: [],
-    status: []
+    status: [],
   };
   var client = grpc.client(DeviceMemory.StreamRead, {
     host: this.serviceHost,
     metadata: metadata,
-    transport: this.options.transport
+    transport: this.options.transport,
   });
   client.onEnd(function (status, statusMessage, trailers) {
     listeners.status.forEach(function (handler) {
@@ -488,7 +522,7 @@ DeviceMemoryClient.prototype.streamRead = function streamRead(metadata) {
   client.onMessage(function (message) {
     listeners.data.forEach(function (handler) {
       handler(message);
-    })
+    });
   });
   client.start(metadata);
   return {
@@ -506,7 +540,7 @@ DeviceMemoryClient.prototype.streamRead = function streamRead(metadata) {
     cancel: function () {
       listeners = null;
       client.close();
-    }
+    },
   };
 };
 
@@ -514,12 +548,12 @@ DeviceMemoryClient.prototype.streamWrite = function streamWrite(metadata) {
   var listeners = {
     data: [],
     end: [],
-    status: []
+    status: [],
   };
   var client = grpc.client(DeviceMemory.StreamWrite, {
     host: this.serviceHost,
     metadata: metadata,
-    transport: this.options.transport
+    transport: this.options.transport,
   });
   client.onEnd(function (status, statusMessage, trailers) {
     listeners.status.forEach(function (handler) {
@@ -533,7 +567,7 @@ DeviceMemoryClient.prototype.streamWrite = function streamWrite(metadata) {
   client.onMessage(function (message) {
     listeners.data.forEach(function (handler) {
       handler(message);
-    })
+    });
   });
   client.start(metadata);
   return {
@@ -551,7 +585,7 @@ DeviceMemoryClient.prototype.streamWrite = function streamWrite(metadata) {
     cancel: function () {
       listeners = null;
       client.close();
-    }
+    },
   };
 };
 
@@ -561,7 +595,7 @@ var DeviceFilesystem = (function () {
   function DeviceFilesystem() {}
   DeviceFilesystem.serviceName = "DeviceFilesystem";
   return DeviceFilesystem;
-}());
+})();
 
 DeviceFilesystem.ReadDirectory = {
   methodName: "ReadDirectory",
@@ -569,7 +603,7 @@ DeviceFilesystem.ReadDirectory = {
   requestStream: false,
   responseStream: false,
   requestType: sni_pb.ReadDirectoryRequest,
-  responseType: sni_pb.ReadDirectoryResponse
+  responseType: sni_pb.ReadDirectoryResponse,
 };
 
 DeviceFilesystem.MakeDirectory = {
@@ -578,7 +612,7 @@ DeviceFilesystem.MakeDirectory = {
   requestStream: false,
   responseStream: false,
   requestType: sni_pb.MakeDirectoryRequest,
-  responseType: sni_pb.MakeDirectoryResponse
+  responseType: sni_pb.MakeDirectoryResponse,
 };
 
 DeviceFilesystem.RemoveFile = {
@@ -587,7 +621,7 @@ DeviceFilesystem.RemoveFile = {
   requestStream: false,
   responseStream: false,
   requestType: sni_pb.RemoveFileRequest,
-  responseType: sni_pb.RemoveFileResponse
+  responseType: sni_pb.RemoveFileResponse,
 };
 
 DeviceFilesystem.RenameFile = {
@@ -596,7 +630,7 @@ DeviceFilesystem.RenameFile = {
   requestStream: false,
   responseStream: false,
   requestType: sni_pb.RenameFileRequest,
-  responseType: sni_pb.RenameFileResponse
+  responseType: sni_pb.RenameFileResponse,
 };
 
 DeviceFilesystem.PutFile = {
@@ -605,7 +639,7 @@ DeviceFilesystem.PutFile = {
   requestStream: false,
   responseStream: false,
   requestType: sni_pb.PutFileRequest,
-  responseType: sni_pb.PutFileResponse
+  responseType: sni_pb.PutFileResponse,
 };
 
 DeviceFilesystem.GetFile = {
@@ -614,7 +648,7 @@ DeviceFilesystem.GetFile = {
   requestStream: false,
   responseStream: false,
   requestType: sni_pb.GetFileRequest,
-  responseType: sni_pb.GetFileResponse
+  responseType: sni_pb.GetFileResponse,
 };
 
 DeviceFilesystem.BootFile = {
@@ -623,7 +657,7 @@ DeviceFilesystem.BootFile = {
   requestStream: false,
   responseStream: false,
   requestType: sni_pb.BootFileRequest,
-  responseType: sni_pb.BootFileResponse
+  responseType: sni_pb.BootFileResponse,
 };
 
 exports.DeviceFilesystem = DeviceFilesystem;
@@ -633,7 +667,11 @@ function DeviceFilesystemClient(serviceHost, options) {
   this.options = options || {};
 }
 
-DeviceFilesystemClient.prototype.readDirectory = function readDirectory(requestMessage, metadata, callback) {
+DeviceFilesystemClient.prototype.readDirectory = function readDirectory(
+  requestMessage,
+  metadata,
+  callback
+) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
@@ -654,17 +692,21 @@ DeviceFilesystemClient.prototype.readDirectory = function readDirectory(requestM
           callback(null, response.message);
         }
       }
-    }
+    },
   });
   return {
     cancel: function () {
       callback = null;
       client.close();
-    }
+    },
   };
 };
 
-DeviceFilesystemClient.prototype.makeDirectory = function makeDirectory(requestMessage, metadata, callback) {
+DeviceFilesystemClient.prototype.makeDirectory = function makeDirectory(
+  requestMessage,
+  metadata,
+  callback
+) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
@@ -685,17 +727,21 @@ DeviceFilesystemClient.prototype.makeDirectory = function makeDirectory(requestM
           callback(null, response.message);
         }
       }
-    }
+    },
   });
   return {
     cancel: function () {
       callback = null;
       client.close();
-    }
+    },
   };
 };
 
-DeviceFilesystemClient.prototype.removeFile = function removeFile(requestMessage, metadata, callback) {
+DeviceFilesystemClient.prototype.removeFile = function removeFile(
+  requestMessage,
+  metadata,
+  callback
+) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
@@ -716,17 +762,21 @@ DeviceFilesystemClient.prototype.removeFile = function removeFile(requestMessage
           callback(null, response.message);
         }
       }
-    }
+    },
   });
   return {
     cancel: function () {
       callback = null;
       client.close();
-    }
+    },
   };
 };
 
-DeviceFilesystemClient.prototype.renameFile = function renameFile(requestMessage, metadata, callback) {
+DeviceFilesystemClient.prototype.renameFile = function renameFile(
+  requestMessage,
+  metadata,
+  callback
+) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
@@ -747,17 +797,21 @@ DeviceFilesystemClient.prototype.renameFile = function renameFile(requestMessage
           callback(null, response.message);
         }
       }
-    }
+    },
   });
   return {
     cancel: function () {
       callback = null;
       client.close();
-    }
+    },
   };
 };
 
-DeviceFilesystemClient.prototype.putFile = function putFile(requestMessage, metadata, callback) {
+DeviceFilesystemClient.prototype.putFile = function putFile(
+  requestMessage,
+  metadata,
+  callback
+) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
@@ -778,17 +832,21 @@ DeviceFilesystemClient.prototype.putFile = function putFile(requestMessage, meta
           callback(null, response.message);
         }
       }
-    }
+    },
   });
   return {
     cancel: function () {
       callback = null;
       client.close();
-    }
+    },
   };
 };
 
-DeviceFilesystemClient.prototype.getFile = function getFile(requestMessage, metadata, callback) {
+DeviceFilesystemClient.prototype.getFile = function getFile(
+  requestMessage,
+  metadata,
+  callback
+) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
@@ -809,17 +867,21 @@ DeviceFilesystemClient.prototype.getFile = function getFile(requestMessage, meta
           callback(null, response.message);
         }
       }
-    }
+    },
   });
   return {
     cancel: function () {
       callback = null;
       client.close();
-    }
+    },
   };
 };
 
-DeviceFilesystemClient.prototype.bootFile = function bootFile(requestMessage, metadata, callback) {
+DeviceFilesystemClient.prototype.bootFile = function bootFile(
+  requestMessage,
+  metadata,
+  callback
+) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
@@ -840,13 +902,13 @@ DeviceFilesystemClient.prototype.bootFile = function bootFile(requestMessage, me
           callback(null, response.message);
         }
       }
-    }
+    },
   });
   return {
     cancel: function () {
       callback = null;
       client.close();
-    }
+    },
   };
 };
 
@@ -856,7 +918,7 @@ var DeviceInfo = (function () {
   function DeviceInfo() {}
   DeviceInfo.serviceName = "DeviceInfo";
   return DeviceInfo;
-}());
+})();
 
 DeviceInfo.FetchFields = {
   methodName: "FetchFields",
@@ -864,7 +926,7 @@ DeviceInfo.FetchFields = {
   requestStream: false,
   responseStream: false,
   requestType: sni_pb.FieldsRequest,
-  responseType: sni_pb.FieldsResponse
+  responseType: sni_pb.FieldsResponse,
 };
 
 exports.DeviceInfo = DeviceInfo;
@@ -874,7 +936,11 @@ function DeviceInfoClient(serviceHost, options) {
   this.options = options || {};
 }
 
-DeviceInfoClient.prototype.fetchFields = function fetchFields(requestMessage, metadata, callback) {
+DeviceInfoClient.prototype.fetchFields = function fetchFields(
+  requestMessage,
+  metadata,
+  callback
+) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
@@ -895,13 +961,13 @@ DeviceInfoClient.prototype.fetchFields = function fetchFields(requestMessage, me
           callback(null, response.message);
         }
       }
-    }
+    },
   });
   return {
     cancel: function () {
       callback = null;
       client.close();
-    }
+    },
   };
 };
 
@@ -911,7 +977,7 @@ var DeviceNWA = (function () {
   function DeviceNWA() {}
   DeviceNWA.serviceName = "DeviceNWA";
   return DeviceNWA;
-}());
+})();
 
 DeviceNWA.NWACommand = {
   methodName: "NWACommand",
@@ -919,7 +985,7 @@ DeviceNWA.NWACommand = {
   requestStream: false,
   responseStream: false,
   requestType: sni_pb.NWACommandRequest,
-  responseType: sni_pb.NWACommandResponse
+  responseType: sni_pb.NWACommandResponse,
 };
 
 exports.DeviceNWA = DeviceNWA;
@@ -929,7 +995,11 @@ function DeviceNWAClient(serviceHost, options) {
   this.options = options || {};
 }
 
-DeviceNWAClient.prototype.nWACommand = function nWACommand(requestMessage, metadata, callback) {
+DeviceNWAClient.prototype.nWACommand = function nWACommand(
+  requestMessage,
+  metadata,
+  callback
+) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
@@ -950,15 +1020,14 @@ DeviceNWAClient.prototype.nWACommand = function nWACommand(requestMessage, metad
           callback(null, response.message);
         }
       }
-    }
+    },
   });
   return {
     cancel: function () {
       callback = null;
       client.close();
-    }
+    },
   };
 };
 
 exports.DeviceNWAClient = DeviceNWAClient;
-

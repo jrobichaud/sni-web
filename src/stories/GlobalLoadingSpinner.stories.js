@@ -1,12 +1,12 @@
-import GlobalLoadingSpinner from '../GlobalLoadingSpinner.svelte';
+import GlobalLoadingSpinner from "../GlobalLoadingSpinner.svelte";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 // More on argTypes: https://storybook.js.org/docs/svelte/api/argtypes
 export default {
-  title: 'GlobalLoadingSpinner',
+  title: "GlobalLoadingSpinner",
   component: GlobalLoadingSpinner,
   argTypes: {
-    isLoading: { control: 'boolean' },
+    isLoading: { control: "boolean" },
   },
 };
 

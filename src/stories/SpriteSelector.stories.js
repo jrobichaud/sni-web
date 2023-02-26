@@ -1,23 +1,21 @@
-
-import SpriteSelector from '../SpriteSelector.svelte';
-import {injectSprites} from "./storeInjection";
-
+import SpriteSelector from "../SpriteSelector.svelte";
+import { injectSprites } from "./storeInjection";
 
 injectSprites();
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 // More on argTypes: https://storybook.js.org/docs/svelte/api/argtypes
 export default {
-    title: 'SpriteSelector',
-    component: SpriteSelector,
-    argTypes: {},
+  title: "SpriteSelector",
+  component: SpriteSelector,
+  argTypes: {},
 };
 
 // More on component templates: https://storybook.js.org/docs/svelte/writing-stories/introduction#using-args
 const Template = (args) => ({
-    Component: SpriteSelector,
-    props: args,
-    on: {},
+  Component: SpriteSelector,
+  props: args,
+  on: {},
 });
 
 // More on args: https://storybook.js.org/docs/svelte/writing-stories/args

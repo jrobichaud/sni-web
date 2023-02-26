@@ -1,8 +1,8 @@
-// package: 
+// package:
 // file: sni.proto
 
 import * as sni_pb from "./sni_pb";
-import {grpc} from "@improbable-eng/grpc-web";
+import { grpc } from "@improbable-eng/grpc-web";
 
 type DevicesListDevices = {
   readonly methodName: string;
@@ -238,32 +238,45 @@ export class DeviceNWA {
   static readonly NWACommand: DeviceNWANWACommand;
 }
 
-export type ServiceError = { message: string, code: number; metadata: grpc.Metadata }
-export type Status = { details: string, code: number; metadata: grpc.Metadata }
+export type ServiceError = {
+  message: string;
+  code: number;
+  metadata: grpc.Metadata;
+};
+export type Status = { details: string; code: number; metadata: grpc.Metadata };
 
 interface UnaryResponse {
   cancel(): void;
 }
 interface ResponseStream<T> {
   cancel(): void;
-  on(type: 'data', handler: (message: T) => void): ResponseStream<T>;
-  on(type: 'end', handler: (status?: Status) => void): ResponseStream<T>;
-  on(type: 'status', handler: (status: Status) => void): ResponseStream<T>;
+  on(type: "data", handler: (message: T) => void): ResponseStream<T>;
+  on(type: "end", handler: (status?: Status) => void): ResponseStream<T>;
+  on(type: "status", handler: (status: Status) => void): ResponseStream<T>;
 }
 interface RequestStream<T> {
   write(message: T): RequestStream<T>;
   end(): void;
   cancel(): void;
-  on(type: 'end', handler: (status?: Status) => void): RequestStream<T>;
-  on(type: 'status', handler: (status: Status) => void): RequestStream<T>;
+  on(type: "end", handler: (status?: Status) => void): RequestStream<T>;
+  on(type: "status", handler: (status: Status) => void): RequestStream<T>;
 }
 interface BidirectionalStream<ReqT, ResT> {
   write(message: ReqT): BidirectionalStream<ReqT, ResT>;
   end(): void;
   cancel(): void;
-  on(type: 'data', handler: (message: ResT) => void): BidirectionalStream<ReqT, ResT>;
-  on(type: 'end', handler: (status?: Status) => void): BidirectionalStream<ReqT, ResT>;
-  on(type: 'status', handler: (status: Status) => void): BidirectionalStream<ReqT, ResT>;
+  on(
+    type: "data",
+    handler: (message: ResT) => void
+  ): BidirectionalStream<ReqT, ResT>;
+  on(
+    type: "end",
+    handler: (status?: Status) => void
+  ): BidirectionalStream<ReqT, ResT>;
+  on(
+    type: "status",
+    handler: (status: Status) => void
+  ): BidirectionalStream<ReqT, ResT>;
 }
 
 export class DevicesClient {
@@ -273,11 +286,17 @@ export class DevicesClient {
   listDevices(
     requestMessage: sni_pb.DevicesRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.DevicesResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.DevicesResponse | null
+    ) => void
   ): UnaryResponse;
   listDevices(
     requestMessage: sni_pb.DevicesRequest,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.DevicesResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.DevicesResponse | null
+    ) => void
   ): UnaryResponse;
 }
 
@@ -288,38 +307,62 @@ export class DeviceControlClient {
   resetSystem(
     requestMessage: sni_pb.ResetSystemRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.ResetSystemResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.ResetSystemResponse | null
+    ) => void
   ): UnaryResponse;
   resetSystem(
     requestMessage: sni_pb.ResetSystemRequest,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.ResetSystemResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.ResetSystemResponse | null
+    ) => void
   ): UnaryResponse;
   resetToMenu(
     requestMessage: sni_pb.ResetToMenuRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.ResetToMenuResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.ResetToMenuResponse | null
+    ) => void
   ): UnaryResponse;
   resetToMenu(
     requestMessage: sni_pb.ResetToMenuRequest,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.ResetToMenuResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.ResetToMenuResponse | null
+    ) => void
   ): UnaryResponse;
   pauseUnpauseEmulation(
     requestMessage: sni_pb.PauseEmulationRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.PauseEmulationResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.PauseEmulationResponse | null
+    ) => void
   ): UnaryResponse;
   pauseUnpauseEmulation(
     requestMessage: sni_pb.PauseEmulationRequest,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.PauseEmulationResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.PauseEmulationResponse | null
+    ) => void
   ): UnaryResponse;
   pauseToggleEmulation(
     requestMessage: sni_pb.PauseToggleEmulationRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.PauseToggleEmulationResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.PauseToggleEmulationResponse | null
+    ) => void
   ): UnaryResponse;
   pauseToggleEmulation(
     requestMessage: sni_pb.PauseToggleEmulationRequest,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.PauseToggleEmulationResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.PauseToggleEmulationResponse | null
+    ) => void
   ): UnaryResponse;
 }
 
@@ -330,50 +373,90 @@ export class DeviceMemoryClient {
   mappingDetect(
     requestMessage: sni_pb.DetectMemoryMappingRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.DetectMemoryMappingResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.DetectMemoryMappingResponse | null
+    ) => void
   ): UnaryResponse;
   mappingDetect(
     requestMessage: sni_pb.DetectMemoryMappingRequest,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.DetectMemoryMappingResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.DetectMemoryMappingResponse | null
+    ) => void
   ): UnaryResponse;
   singleRead(
     requestMessage: sni_pb.SingleReadMemoryRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.SingleReadMemoryResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.SingleReadMemoryResponse | null
+    ) => void
   ): UnaryResponse;
   singleRead(
     requestMessage: sni_pb.SingleReadMemoryRequest,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.SingleReadMemoryResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.SingleReadMemoryResponse | null
+    ) => void
   ): UnaryResponse;
   singleWrite(
     requestMessage: sni_pb.SingleWriteMemoryRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.SingleWriteMemoryResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.SingleWriteMemoryResponse | null
+    ) => void
   ): UnaryResponse;
   singleWrite(
     requestMessage: sni_pb.SingleWriteMemoryRequest,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.SingleWriteMemoryResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.SingleWriteMemoryResponse | null
+    ) => void
   ): UnaryResponse;
   multiRead(
     requestMessage: sni_pb.MultiReadMemoryRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.MultiReadMemoryResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.MultiReadMemoryResponse | null
+    ) => void
   ): UnaryResponse;
   multiRead(
     requestMessage: sni_pb.MultiReadMemoryRequest,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.MultiReadMemoryResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.MultiReadMemoryResponse | null
+    ) => void
   ): UnaryResponse;
   multiWrite(
     requestMessage: sni_pb.MultiWriteMemoryRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.MultiWriteMemoryResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.MultiWriteMemoryResponse | null
+    ) => void
   ): UnaryResponse;
   multiWrite(
     requestMessage: sni_pb.MultiWriteMemoryRequest,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.MultiWriteMemoryResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.MultiWriteMemoryResponse | null
+    ) => void
   ): UnaryResponse;
-  streamRead(metadata?: grpc.Metadata): BidirectionalStream<sni_pb.MultiReadMemoryRequest, sni_pb.MultiReadMemoryResponse>;
-  streamWrite(metadata?: grpc.Metadata): BidirectionalStream<sni_pb.MultiWriteMemoryRequest, sni_pb.MultiWriteMemoryResponse>;
+  streamRead(
+    metadata?: grpc.Metadata
+  ): BidirectionalStream<
+    sni_pb.MultiReadMemoryRequest,
+    sni_pb.MultiReadMemoryResponse
+  >;
+  streamWrite(
+    metadata?: grpc.Metadata
+  ): BidirectionalStream<
+    sni_pb.MultiWriteMemoryRequest,
+    sni_pb.MultiWriteMemoryResponse
+  >;
 }
 
 export class DeviceFilesystemClient {
@@ -383,65 +466,107 @@ export class DeviceFilesystemClient {
   readDirectory(
     requestMessage: sni_pb.ReadDirectoryRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.ReadDirectoryResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.ReadDirectoryResponse | null
+    ) => void
   ): UnaryResponse;
   readDirectory(
     requestMessage: sni_pb.ReadDirectoryRequest,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.ReadDirectoryResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.ReadDirectoryResponse | null
+    ) => void
   ): UnaryResponse;
   makeDirectory(
     requestMessage: sni_pb.MakeDirectoryRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.MakeDirectoryResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.MakeDirectoryResponse | null
+    ) => void
   ): UnaryResponse;
   makeDirectory(
     requestMessage: sni_pb.MakeDirectoryRequest,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.MakeDirectoryResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.MakeDirectoryResponse | null
+    ) => void
   ): UnaryResponse;
   removeFile(
     requestMessage: sni_pb.RemoveFileRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.RemoveFileResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.RemoveFileResponse | null
+    ) => void
   ): UnaryResponse;
   removeFile(
     requestMessage: sni_pb.RemoveFileRequest,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.RemoveFileResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.RemoveFileResponse | null
+    ) => void
   ): UnaryResponse;
   renameFile(
     requestMessage: sni_pb.RenameFileRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.RenameFileResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.RenameFileResponse | null
+    ) => void
   ): UnaryResponse;
   renameFile(
     requestMessage: sni_pb.RenameFileRequest,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.RenameFileResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.RenameFileResponse | null
+    ) => void
   ): UnaryResponse;
   putFile(
     requestMessage: sni_pb.PutFileRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.PutFileResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.PutFileResponse | null
+    ) => void
   ): UnaryResponse;
   putFile(
     requestMessage: sni_pb.PutFileRequest,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.PutFileResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.PutFileResponse | null
+    ) => void
   ): UnaryResponse;
   getFile(
     requestMessage: sni_pb.GetFileRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.GetFileResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.GetFileResponse | null
+    ) => void
   ): UnaryResponse;
   getFile(
     requestMessage: sni_pb.GetFileRequest,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.GetFileResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.GetFileResponse | null
+    ) => void
   ): UnaryResponse;
   bootFile(
     requestMessage: sni_pb.BootFileRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.BootFileResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.BootFileResponse | null
+    ) => void
   ): UnaryResponse;
   bootFile(
     requestMessage: sni_pb.BootFileRequest,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.BootFileResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.BootFileResponse | null
+    ) => void
   ): UnaryResponse;
 }
 
@@ -452,11 +577,17 @@ export class DeviceInfoClient {
   fetchFields(
     requestMessage: sni_pb.FieldsRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.FieldsResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.FieldsResponse | null
+    ) => void
   ): UnaryResponse;
   fetchFields(
     requestMessage: sni_pb.FieldsRequest,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.FieldsResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.FieldsResponse | null
+    ) => void
   ): UnaryResponse;
 }
 
@@ -467,11 +598,16 @@ export class DeviceNWAClient {
   nWACommand(
     requestMessage: sni_pb.NWACommandRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.NWACommandResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.NWACommandResponse | null
+    ) => void
   ): UnaryResponse;
   nWACommand(
     requestMessage: sni_pb.NWACommandRequest,
-    callback: (error: ServiceError|null, responseMessage: sni_pb.NWACommandResponse|null) => void
+    callback: (
+      error: ServiceError | null,
+      responseMessage: sni_pb.NWACommandResponse | null
+    ) => void
   ): UnaryResponse;
 }
-
