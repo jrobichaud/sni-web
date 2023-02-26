@@ -1,8 +1,8 @@
 import AlttprRandomizer from '../AlttprRandomizer.svelte';
 
-import {alttprSettings} from "../store";
+import {rawAlttprSettings} from "../store";
 
-alttprSettings.set(
+rawAlttprSettings.set(
     {
         "accessibility": {"items": "100% Inventory", "locations": "100% Locations", "none": "Not Guaranteed"},
         "boss_shuffle": {"full": "Full", "none": "None", "random": "Random", "simple": "Simple"},
@@ -35,8 +35,7 @@ alttprSettings.set(
             "none": "None",
             "overworld_glitches": "Overworld Glitches"
         },
-        // TODO convert goals to goal from fetch result
-        "goal": {
+        "goals": {
             "dungeons": "All Dungeons",
             "fast_ganon": "Fast Ganon",
             "ganon": "Defeat Ganon",

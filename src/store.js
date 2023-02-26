@@ -7,7 +7,17 @@ selectedSprite.subscribe((value) => {
     localStorage.setItem("sprite", value)
 })
 
-export const alttprSettings = writable({});
+export const rawAlttprSettings = writable({});
+
+export const alttprSettings = derived(
+    rawAlttprSettings,
+    $rawAlttprSettings => {
+        const copy = {...$rawAlttprSettings};
+        copy.goal = copy.goals;
+        delete copy.goals;
+        return copy;
+    }
+);
 
 export const fileSystemClient = writable(null);
 export const device = writable(null);
