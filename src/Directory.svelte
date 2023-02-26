@@ -8,9 +8,9 @@
     import Button, {Label} from "@smui/button";
     import SpriteSelector from "./SpriteSelector.svelte";
     import GlobalLoadingSpinner from "./GlobalLoadingSpinner.svelte";
+    import {fileSystemClient} from "./store";
 
     export let directory;
-    export let fileSystemClient;
     export let device;
     export let indent;
     export let expanded = false;
@@ -32,7 +32,7 @@
             request.setUri(device.uri)
             request.setPath(path);
             request.setData(new Uint8Array(bytes))
-            fileSystemClient.putFile(request, (err, res) => {
+            $fileSystemClient.putFile(request, (err, res) => {
                 resolve();
                 files = null;
             })
@@ -65,14 +65,14 @@
     }
 
     function loadFiles() {
-        if (!fileSystemClient || !device)
+        if (!$fileSystemClient || !device)
             return;
 
         const request = new ReadDirectoryRequest()
         request.setUri(device.uri);
         request.setPath(directory.fullpath)
         promise = new Promise(resolve => {
-            fileSystemClient.readDirectory(request, {}, (err, res) => {
+            $fileSystemClient.readDirectory(request, {}, (err, res) => {
                 if (res) {
                     let entries = res.getEntriesList().map((e) => ({
                         type: e.getType(),
@@ -220,13 +220,12 @@
                                 style="padding-left: {(indent+1)*24}px"
                                 directory={child}
                                 device={device}
-                                fileSystemClient={fileSystemClient}
                                 indent={indent+1}
                                 parent={child.fullpath}
                         />
                     {/if}
                     {#if child.type === DirEntryType.FILE && child.name.match(/^(?!\._).*\.(smc|sfc)$/)}
-                        <File name={child.name} indent={indent+1} fileSystemClient={fileSystemClient}
+                        <File name={child.name} indent={indent+1}
                               device={device} fullpath={child.fullpath}
                               reloadParent={reload}
                         />

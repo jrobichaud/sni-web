@@ -8,3 +8,5 @@ selectedSprite.subscribe((value) => {
 })
 
 export const alttprSettings = writable({});
+
+export const fileSystemClient = writable(null);
