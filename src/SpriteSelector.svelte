@@ -20,8 +20,8 @@
 </style>
 <Select variant="filled" bind:value={selected} label="Sprite" style="width: 100%;overflow: visible" withLeadingIcon>
     <svelte:fragment slot="leadingIcon">
-        {#if selected}
-            <img class="icon" src={$sprites.find(s=>selected===s.name).preview} alt="Not Found"/>
+        {#if selected }
+            <img class="icon" src={$sprites.find(s=>selected===s.name)?.preview} alt="Not Found"/>
         {/if}
     </svelte:fragment>
     {#each $sprites as sprite}
