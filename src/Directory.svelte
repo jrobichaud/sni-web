@@ -1,14 +1,15 @@
 <script>
-    import List, {Item, Text, Graphic} from "@smui/list";
+    import List, {Graphic, Item, Text} from "@smui/list";
     import IconButton from '@smui/icon-button';
-    import {DirEntryType, PutFileRequest, ReadDirectoryRequest} from "./sni-client/sni_pb";
+    import {DirEntryType, ReadDirectoryRequest} from "./sni-client/sni_pb";
     import File from "./File.svelte";
     import CircularProgress from '@smui/circular-progress';
     import Dialog, {Actions, Content, Title} from "@smui/dialog";
     import Button, {Label} from "@smui/button";
     import SpriteSelector from "./SpriteSelector.svelte";
     import GlobalLoadingSpinner from "./GlobalLoadingSpinner.svelte";
-    import {fileSystemClient, device} from "./store";
+    import {device, fileSystemClient} from "./store";
+    import {downloadAndSaveFile, saveFile} from "./utils";
 
     export let directory;
     export let indent;
@@ -24,20 +25,6 @@
     let selectedSprite;
     let loading = false;
 
-
-    function saveFile(path, bytes) {
-        return new Promise(resolve => {
-            let request = new PutFileRequest();
-            request.setUri($device.uri)
-            request.setPath(path);
-            request.setData(new Uint8Array(bytes))
-            $fileSystemClient.putFile(request, (err, res) => {
-                resolve();
-                files = null;
-            })
-        })
-
-    }
 
     function saveReader(fileReader, file) {
         loading = true;
@@ -101,41 +88,11 @@
         promise = null;
         loadFiles();
     }
-    async function streamToArrayBuffer(stream) {
-        let result = new Uint8Array(0);
-        const reader = stream.getReader();
-        while (true) { // eslint-disable-line no-constant-condition
-            const {done, value} = await reader.read();
-            if (done) {
-                break;
-            }
 
-            const newResult = new Uint8Array(result.length + value.length);
-            newResult.set(result);
-            newResult.set(value, result.length);
-            result = newResult;
-        }
-        return result
-    }
     async function saveDaily() {
         loading = true;
         try {
-            const response = await fetch('/pyz3r/alttpr/daily', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({sprite: selectedSprite})
-            });
-            const filename = response.headers.get('content-disposition')
-                .split(';')
-                .find(n => n.includes('filename='))
-                .replace('filename=', '')
-                .replaceAll('\"', '')
-                .trim()
-            ;
-            let data = await streamToArrayBuffer(await response.body);
-            await saveFile(directory.fullpath + "/" + filename, data);
+            await downloadAndSaveFile('/pyz3r/alttpr/daily', {sprite: selectedSprite}, directory.fullpath);
             loadFiles();
         }
         catch (e) {
