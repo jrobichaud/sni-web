@@ -1,43 +1,9 @@
 
 import SpriteSelector from '../SpriteSelector.svelte';
+import {injectSprites} from "./storeInjection";
 
-import {sprites} from "../store";
 
-sprites.set(
-    [
-        {
-            "author": "Nintendo",
-            "file": "https://alttpr-assets.s3.us-east-2.amazonaws.com/001.link.1.zspr",
-            "name": "Link",
-            "preview": "https://alttpr-assets.s3.us-east-2.amazonaws.com/001.link.1.zspr.png",
-            "tags": [
-                "Link",
-                "Male",
-                "Legend of Zelda"
-            ],
-            "usage": [
-                "commercial",
-                "smz3"
-            ],
-            "version": 1
-        },
-        {
-            "author": "RoPan",
-            "file": "https://alttpr-assets.s3.us-east-2.amazonaws.com/peach.1.zspr",
-            "name": "Princess Peach",
-            "preview": "https://alttpr-assets.s3.us-east-2.amazonaws.com/peach.1.zspr.png",
-            "tags": [
-                "Mario",
-                "Princess",
-                "Female"
-            ],
-            "usage": [
-                "smz3"
-            ],
-            "version": 1
-        }
-    ]
-)
+injectSprites();
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 // More on argTypes: https://storybook.js.org/docs/svelte/api/argtypes
