@@ -8,7 +8,7 @@
 <script>
   import Select from "@smui/select";
   import { Option } from "@smui/select";
-  import { sprites, selectedSprite } from "./store";
+  import { sprites, selectedSprite, previewSprite } from "./store";
   import { onMount } from "svelte";
 
   export let selected = $selectedSprite;
@@ -27,13 +27,7 @@
   withLeadingIcon
 >
   <svelte:fragment slot="leadingIcon">
-    {#if selected}
-      <img
-        class="icon"
-        src="{$sprites.find((s) => selected === s.name)?.preview}"
-        alt="Not Found"
-      />
-    {/if}
+    <img class="icon" src="{$previewSprite}" alt="" />
   </svelte:fragment>
   {#each $sprites as sprite}
     <Option value="{sprite.name}"

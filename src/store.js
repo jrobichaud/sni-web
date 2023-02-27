@@ -9,6 +9,12 @@ selectedSprite.subscribe((value) => {
   localStorage.setItem("sprite", value);
 });
 
+export const previewSprite = derived(
+  [sprites, selectedSprite],
+  ([$sprites, $selectedSprite]) =>
+    $sprites.find((s) => $selectedSprite === s.name)?.preview
+);
+
 export const rawAlttprSettings = writable({});
 
 export const alttprSettings = derived(
