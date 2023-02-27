@@ -6,6 +6,7 @@
 
 <script>
   import Button, { Label, Icon } from "@smui/button";
+  import IconifyIcon from "@iconify/svelte";
   import { grpc } from "@improbable-eng/grpc-web";
 
   import { DeviceControlClient, Devices } from "./sni-client/sni_pb_service";
@@ -161,7 +162,7 @@
     </div>
     <div class="container" style="flex-direction: row; justify-content:center">
       <Button variant="outlined" href="/zt/" target="_blank">
-        <Icon class="material-icons">change_history</Icon>
+        <Icon><IconifyIcon icon="mdi:triforce" /></Icon>
         <Label>&nbsp;Alttpr</Label>
       </Button>
     </div>

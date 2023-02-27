@@ -15,13 +15,11 @@
   import { DirEntryType, ReadDirectoryRequest } from "./sni-client/sni_pb";
   import File from "./File.svelte";
   import CircularProgress from "@smui/circular-progress";
-  import Dialog, { Actions, Content, Title } from "@smui/dialog";
-  import Button, { Label } from "@smui/button";
-  import SpriteSelector from "./SpriteSelector.svelte";
   import GlobalLoadingSpinner from "./GlobalLoadingSpinner.svelte";
   import { device, fileSystemClient } from "./store";
-  import { downloadAndSaveFile, saveFile } from "./utils";
+  import { saveFile } from "./utils";
   import AlttprDialog from "./AlttprDialog.svelte";
+  import Icon from "@iconify/svelte";
 
   export let directory;
   export let indent;
@@ -132,11 +130,8 @@
     <Text>&nbsp;{directory.name}</Text>
     <span class="right">
       <span>
-        <IconButton
-          class="material-icons"
-          on:click$stopPropagation="{() => (openAlttpr = true)}"
-        >
-          event_repeat
+        <IconButton on:click$stopPropagation="{() => (openAlttpr = true)}">
+          <Icon icon="mdi:triforce" />
         </IconButton>
       </span>
       <span>

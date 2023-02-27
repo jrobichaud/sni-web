@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
+    "@iconify/svelte": "^3.1.0",
     "@improbable-eng/grpc-web": "^0.15.0",
     "@improbable-eng/grpc-web-node-http-transport": "^0.15.0",
     "@smui/button": "^7.0.0-beta.0",
