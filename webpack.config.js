@@ -1,26 +1,26 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
-const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const mode = process.env.NODE_ENV || "development";
 const prod = mode === "production";
 
 module.exports = {
   entry: {
-    bundle: ["./src/index.js"]
+    bundle: ["./src/index.js"],
   },
   resolve: {
     alias: {
-      svelte: path.resolve("node_modules", "svelte")
+      svelte: path.resolve("node_modules", "svelte"),
     },
     extensions: [".mjs", ".js", ".svelte"],
     mainFields: ["svelte", "browser", "module", "main"],
-    conditionNames: ['svelte']
+    conditionNames: ["svelte"],
   },
   output: {
     path: __dirname + "/public",
     filename: "[name].js",
-    chunkFilename: "[name].[id].js"
+    chunkFilename: "[name].[id].js",
   },
   module: {
     rules: [
@@ -30,9 +30,9 @@ module.exports = {
           loader: "svelte-loader",
           options: {
             emitCss: true,
-            hotReload: true
-          }
-        }
+            hotReload: true,
+          },
+        },
       },
       {
         test: /\.css$/,
@@ -42,40 +42,40 @@ module.exports = {
            * For developing, use 'style-loader' instead.
            * */
           prod ? MiniCssExtractPlugin.loader : "style-loader",
-          "css-loader"
-        ]
-      }
-    ]
+          "css-loader",
+        ],
+      },
+    ],
   },
   mode,
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "[name].css"
+      filename: "[name].css",
     }),
     new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: [
-        "*.LICENSE.txt",
-        '!**/*',
-      ],
+      cleanOnceBeforeBuildPatterns: ["*.LICENSE.txt", "!**/*"],
       protectWebpackAssets: false,
-      cleanAfterEveryBuildPatterns: ['*.LICENSE.txt'],
-    })
+      cleanAfterEveryBuildPatterns: ["*.LICENSE.txt"],
+    }),
   ],
   devServer: {
     proxy: {
-      '/sni': {
-        target: 'http://retro-controller.local',
+      "/sni": {
+        target: "http://retro-controller.local",
         changeOrigin: true,
+        secure: false,
       },
-      '/zt': {
-        target: 'http://retro-controller.local',
+      "/zt": {
+        target: "http://retro-controller.local",
         changeOrigin: true,
+        secure: false,
       },
-      '/pyz3r': {
-        target: 'http://retro-controller.local',
+      "/pyz3r": {
+        target: "http://retro-controller.local",
         changeOrigin: true,
-      }
+        secure: false,
+      },
     },
   },
-  devtool: prod ? false : "source-map"
+  devtool: prod ? false : "source-map",
 };
