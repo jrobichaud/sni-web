@@ -25,6 +25,7 @@
   import GlobalLoadingSpinner from "./GlobalLoadingSpinner.svelte";
   import { device, fileSystemClient } from "./store";
   import { downloadAndSaveFile, saveFile } from "./utils";
+  import AlttprDialog from "./AlttprDialog.svelte";
 
   export let directory;
   export let indent;
@@ -35,9 +36,8 @@
   let promise;
   $: expanded, expanded ? loadFiles() : (promise = null);
 
-  let dailyOpen;
+  let openAlttpr;
 
-  let selectedSprite;
   let loading = false;
 
   function saveReader(fileReader, file) {
@@ -108,45 +108,15 @@
     promise = null;
     loadFiles();
   }
-
-  async function saveDaily() {
-    loading = true;
-    try {
-      await downloadAndSaveFile(
-        "/pyz3r/alttpr/daily",
-        { sprite: selectedSprite },
-        directory.fullpath
-      );
-      loadFiles();
-    } catch (e) {
-      console.error("daily error", e);
-    } finally {
-      loading = false;
-    }
-  }
 </script>
 
 <GlobalLoadingSpinner isLoading="{loading}" />
 
-<Dialog
-  bind:open="{dailyOpen}"
-  class="daily"
-  aria-labelledby="daily-title"
-  aria-describedby="daily-content"
->
-  <Title id="daily-title">Daily</Title>
-  <Content id="daily-content">
-    <SpriteSelector bind:selected="{selectedSprite}" />
-  </Content>
-  <Actions>
-    <Button on:click="{() => (dailyOpen = false)}">
-      <Label>Cancel</Label>
-    </Button>
-    <Button on:click="{saveDaily}">
-      <Label>Yes</Label>
-    </Button>
-  </Actions>
-</Dialog>
+<AlttprDialog
+  bind:open="{openAlttpr}"
+  directory="{directory.fullpath}"
+  on:completed="{loadFiles}"
+/>
 
 <input
   class="hidden"
@@ -168,7 +138,7 @@
       <span>
         <IconButton
           class="material-icons"
-          on:click$stopPropagation="{() => (dailyOpen = true)}"
+          on:click$stopPropagation="{() => (openAlttpr = true)}"
         >
           event_repeat
         </IconButton>
