@@ -7,10 +7,6 @@
     position: absolute;
     right: 0;
   }
-
-  :global(.daily .mdc-dialog__surface) {
-    min-height: 400px;
-  }
 </style>
 
 <script>

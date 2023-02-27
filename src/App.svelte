@@ -22,7 +22,7 @@
   import FileBrowser from "./FileBrowser.svelte";
   import CircularProgress from "@smui/circular-progress";
   import IconButton from "@smui/icon-button";
-  import { sprites, device } from "./store";
+  import { sprites, device, rawAlttprSettings } from "./store";
 
   let url = "/sni";
   let devices;
@@ -37,6 +37,16 @@
       .then((response) => response.json())
       .then((data) => {
         sprites.set(data);
+      })
+      .catch((error) => {
+        console.log(error);
+        return [];
+      });
+
+    fetch("/pyz3r/alttpr/settings")
+      .then((response) => response.json())
+      .then((data) => {
+        rawAlttprSettings.set(data);
       })
       .catch((error) => {
         console.log(error);

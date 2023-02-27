@@ -134,7 +134,7 @@
 
 {#each sections as section}
   <div>
-    <h4>{section.name}</h4>
+    <h6>{section.name}</h6>
     {#each section.fields as field}
       <Select
         label="{field.name}"
