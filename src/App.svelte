@@ -4,8 +4,19 @@
   }
 </style>
 
+<script context="module">
+  import { waitLocale } from "svelte-i18n";
+  import "./i18n/i18n";
+
+  export async function preload() {
+    // awaits for the loading of the 'en-US' and 'en' dictionaries
+    return waitLocale();
+  }
+</script>
+
 <script>
   import Button, { Label, Icon } from "@smui/button";
+  import { _ } from "svelte-i18n";
   import IconifyIcon from "@iconify/svelte";
   import { grpc } from "@improbable-eng/grpc-web";
 
@@ -139,7 +150,7 @@
     <Select
       variant="filled"
       bind:value="{$device}"
-      label="Device"
+      label="{$_('Device')}"
       style="width: 100%;"
     >
       {#if devices}

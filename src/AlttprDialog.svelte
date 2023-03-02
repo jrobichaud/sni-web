@@ -14,6 +14,7 @@
 </style>
 
 <script>
+  import { _ } from "svelte-i18n";
   import Dialog, { Actions, Content, Title } from "@smui/dialog";
   import Tab, { Label as TabLabel } from "@smui/tab";
   import TabBar from "@smui/tab-bar";
@@ -86,7 +87,7 @@
       },
       tournament: false,
       spoilers: selectedSettings.spoilers,
-      lang: "en",
+      lang: $_("ROM_LANGUAGE"),
       enemizer: {
         boss_shuffle: selectedSettings.boss_shuffle,
         enemy_shuffle: selectedSettings.enemy_shuffle,
