@@ -23,8 +23,8 @@
   import { downloadAndSaveFile } from "./utils";
   import GlobalLoadingSpinner from "./GlobalLoadingSpinner.svelte";
   import AlttprRandomizer from "./AlttprRandomizer.svelte";
+  import { selectedSprite } from "./store";
 
-  let selectedSprite;
   export let open;
 
   export let directory;
@@ -37,7 +37,7 @@
   async function saveDaily() {
     await downloadAndSaveFile(
       "/pyz3r/alttpr/daily",
-      { sprite: selectedSprite },
+      { sprite: $selectedSprite },
       directory
     );
   }
@@ -98,7 +98,7 @@
   async function saveGenerate() {
     await downloadAndSaveFile(
       "/pyz3r/alttpr/generate",
-      { sprite: selectedSprite, settings: deriveSettings() },
+      { sprite: $selectedSprite, settings: deriveSettings() },
       directory
     );
   }
@@ -134,7 +134,7 @@
         <TabLabel>{tab}</TabLabel>
       </Tab>
     </TabBar>
-    <SpriteSelector bind:selected="{selectedSprite}" />
+    <SpriteSelector />
     <div class="tabContent">
       {#if active === "Generate"}
         <AlttprRandomizer bind:selectedSettings="{selectedSettings}" />
