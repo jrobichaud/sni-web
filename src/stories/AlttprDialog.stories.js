@@ -1,4 +1,4 @@
-import AlttprDialog from "../AlttprDialog.svelte";
+import AlttprDialog from "../alttpr/AlttprDialog.svelte";
 import { injectAlttprSettings, injectSprites } from "./storeInjection";
 
 injectAlttprSettings();

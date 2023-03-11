@@ -17,13 +17,13 @@
   import Dialog, { Actions, Content, Title } from "@smui/dialog";
   import Tab, { Label as TabLabel } from "@smui/tab";
   import TabBar from "@smui/tab-bar";
-  import SpriteSelector from "./SpriteSelector.svelte";
+  import SpriteSelector from "../SpriteSelector.svelte";
   import Button, { Label } from "@smui/button";
   import { createEventDispatcher } from "svelte";
-  import { downloadAndSaveFile } from "./utils";
-  import GlobalLoadingSpinner from "./GlobalLoadingSpinner.svelte";
+  import { downloadAndSaveFile } from "../utils";
+  import GlobalLoadingSpinner from "../GlobalLoadingSpinner.svelte";
   import AlttprRandomizer from "./AlttprRandomizer.svelte";
-  import { selectedSprite } from "./store";
+  import { selectedSprite } from "../store";
 
   export let open;
 
