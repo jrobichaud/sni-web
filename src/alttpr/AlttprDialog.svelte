@@ -24,6 +24,7 @@
   import GlobalLoadingSpinner from "../GlobalLoadingSpinner.svelte";
   import AlttprRandomizer from "./AlttprRandomizer.svelte";
   import { selectedSprite } from "../store";
+  import Icon from "@iconify/svelte";
 
   export let open;
 
@@ -127,7 +128,10 @@
   aria-labelledby="daily-title"
   aria-describedby="daily-content"
 >
-  <Title id="daily-title">Alttpr</Title>
+  <Title id="daily-title">
+    <Icon icon="mdi:triforce" />
+    <span>&nbsp;Alttpr</span>
+  </Title>
   <Content id="daily-content">
     <TabBar tabs="{['Daily', 'Generate']}" let:tab bind:active="{active}">
       <Tab tab="{tab}">
