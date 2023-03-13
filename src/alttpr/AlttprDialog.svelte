@@ -18,14 +18,15 @@
   import Dialog, { Actions, Content, Title } from "@smui/dialog";
   import Tab, { Label as TabLabel } from "@smui/tab";
   import TabBar from "@smui/tab-bar";
-  import SpriteSelector from "./SpriteSelector.svelte";
+  import SpriteSelector from "../SpriteSelector.svelte";
   import Button, { Label } from "@smui/button";
   import { createEventDispatcher } from "svelte";
-  import { downloadAndSaveFile } from "./utils";
-  import GlobalLoadingSpinner from "./GlobalLoadingSpinner.svelte";
+  import { downloadAndSaveFile } from "../utils";
+  import GlobalLoadingSpinner from "../GlobalLoadingSpinner.svelte";
   import AlttprRandomizer from "./AlttprRandomizer.svelte";
+  import { selectedSprite } from "../store";
+  import Icon from "@iconify/svelte";
 
-  let selectedSprite;
   export let open;
 
   export let directory;
@@ -38,7 +39,7 @@
   async function saveDaily() {
     await downloadAndSaveFile(
       "/pyz3r/alttpr/daily",
-      { sprite: selectedSprite },
+      { sprite: $selectedSprite },
       directory
     );
   }
@@ -99,7 +100,7 @@
   async function saveGenerate() {
     await downloadAndSaveFile(
       "/pyz3r/alttpr/generate",
-      { sprite: selectedSprite, settings: deriveSettings() },
+      { sprite: $selectedSprite, settings: deriveSettings() },
       directory
     );
   }
@@ -128,14 +129,17 @@
   aria-labelledby="daily-title"
   aria-describedby="daily-content"
 >
-  <Title id="daily-title">Alttpr</Title>
+  <Title id="daily-title">
+    <Icon icon="mdi:triforce" />
+    <span>&nbsp;Alttpr</span>
+  </Title>
   <Content id="daily-content">
     <TabBar tabs="{['Daily', 'Generate']}" let:tab bind:active="{active}">
       <Tab tab="{tab}">
         <TabLabel>{tab}</TabLabel>
       </Tab>
     </TabBar>
-    <SpriteSelector bind:selected="{selectedSprite}" />
+    <SpriteSelector />
     <div class="tabContent">
       {#if active === "Generate"}
         <AlttprRandomizer bind:selectedSettings="{selectedSettings}" />

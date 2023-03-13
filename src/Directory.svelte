@@ -18,8 +18,9 @@
   import GlobalLoadingSpinner from "./GlobalLoadingSpinner.svelte";
   import { device, fileSystemClient } from "./store";
   import { saveFile } from "./utils";
-  import AlttprDialog from "./AlttprDialog.svelte";
+  import AlttprDialog from "./alttpr/AlttprDialog.svelte";
   import Icon from "@iconify/svelte";
+  import SMRDialog from "./smr/SMRDialog.svelte";
 
   export let directory;
   export let indent;
@@ -31,6 +32,7 @@
   $: expanded, expanded ? loadFiles() : (promise = null);
 
   let openAlttpr;
+  let openSMR;
 
   let loading = false;
 
@@ -112,6 +114,12 @@
   on:completed="{loadFiles}"
 />
 
+<SMRDialog
+  bind:open="{openSMR}"
+  directory="{directory.fullpath}"
+  on:completed="{loadFiles}"
+/>
+
 <input
   class="hidden"
   id="file-to-upload"
@@ -132,6 +140,11 @@
       <span>
         <IconButton on:click$stopPropagation="{() => (openAlttpr = true)}">
           <Icon icon="mdi:triforce" />
+        </IconButton>
+      </span>
+      <span>
+        <IconButton on:click$stopPropagation="{() => (openSMR = true)}">
+          <Icon icon="game-icons:metroid" />
         </IconButton>
       </span>
       <span>

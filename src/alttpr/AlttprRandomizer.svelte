@@ -1,5 +1,5 @@
 <script>
-  import { alttprSettings } from "./store";
+  import { alttprSettings } from "../store";
   import Select, { Option } from "@smui/select";
   import { onMount } from "svelte";
 
