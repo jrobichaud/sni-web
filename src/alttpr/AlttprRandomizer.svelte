@@ -1,4 +1,5 @@
 <script>
+  import { _ } from "svelte-i18n";
   import { alttprSettings } from "../store";
   import Select, { Option } from "@smui/select";
   import { onMount } from "svelte";
@@ -126,7 +127,7 @@
   {#if $alttprSettings["presets"]}
     <Select label="Presets" bind:value="{preset}">
       {#each Object.entries($alttprSettings["presets"]) as [value, label]}
-        <Option value="{value}">{value}</Option>
+        <Option value="{value}">{$_(value)}</Option>
       {/each}
     </Select>
   {/if}
@@ -134,15 +135,15 @@
 
 {#each sections as section}
   <div>
-    <h6>{section.name}</h6>
+    <h6>{$_(section.name)}</h6>
     {#each section.fields as field}
       <Select
-        label="{field.name}"
+        label="{$_(field.name)}"
         bind:value="{selectedSettings[field.key]}"
         on:SMUI:action="{valueChanged}"
       >
         {#each Object.entries($alttprSettings[field.key]) as [value, label]}
-          <Option value="{value}">{label}</Option>
+          <Option value="{value}">{$_(label)}</Option>
         {/each}
       </Select>
     {/each}

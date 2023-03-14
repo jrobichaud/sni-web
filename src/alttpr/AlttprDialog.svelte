@@ -88,7 +88,7 @@
       },
       tournament: false,
       spoilers: selectedSettings.spoilers,
-      lang: $_("ROM_LANGUAGE"),
+      lang: "en",
       enemizer: {
         boss_shuffle: selectedSettings.boss_shuffle,
         enemy_shuffle: selectedSettings.enemy_shuffle,
@@ -136,7 +136,7 @@
   <Content id="daily-content">
     <TabBar tabs="{['Daily', 'Generate']}" let:tab bind:active="{active}">
       <Tab tab="{tab}">
-        <TabLabel>{tab}</TabLabel>
+        <TabLabel>{$_(tab)}</TabLabel>
       </Tab>
     </TabBar>
     <SpriteSelector />
@@ -148,10 +148,10 @@
   </Content>
   <Actions>
     <Button on:click="{() => (open = false)}">
-      <Label>Cancel</Label>
+      <Label>{$_("Cancel")}</Label>
     </Button>
     <Button on:click="{save}">
-      <Label>Yes</Label>
+      <Label>{$_("Generate")}</Label>
     </Button>
   </Actions>
 </Dialog>
