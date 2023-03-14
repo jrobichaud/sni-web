@@ -12,6 +12,7 @@
 </style>
 
 <script>
+  import { _ } from "svelte-i18n";
   import Dialog, { Actions, Content, Title } from "@smui/dialog";
   import Button, { Label } from "@smui/button";
   import { createEventDispatcher } from "svelte";
@@ -245,7 +246,7 @@
   <Content id="smr-content">
     <Select label="Difficulty" bind:value="{preset}">
       {#each presets as [value, label]}
-        <Option value="{value}">{label}</Option>
+        <Option value="{value}">{$_(label)}</Option>
       {/each}
     </Select>
 
@@ -254,13 +255,13 @@
         <Option value="{value}">
           <div style="display: flex; flex-direction: column;">
             <div class="mdc-typography--body2">
-              <strong>{value}&nbsp;({category})</strong>
+              <strong>{$_(value)}&nbsp;({$_(category)})</strong>
             </div>
             <div
               style="white-space: nowrap;"
               class="mdc-typography--caption overflow-ellipsis"
             >
-              {label}
+              {$_(label)}
             </div>
           </div></Option
         >
@@ -270,10 +271,10 @@
 
   <Actions>
     <Button on:click="{() => (open = false)}">
-      <Label>Cancel</Label>
+      <Label>{$_("Cancel")}</Label>
     </Button>
     <Button on:click="{save}">
-      <Label>Yes</Label>
+      <Label>{$_("Generate")}</Label>
     </Button>
   </Actions>
 </Dialog>
