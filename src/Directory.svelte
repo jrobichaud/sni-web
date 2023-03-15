@@ -11,6 +11,7 @@
 
 <script>
   import List, { Graphic, Item, Text } from "@smui/list";
+  import MenuSurface from "@smui/menu-surface";
   import IconButton from "@smui/icon-button";
   import { DirEntryType, ReadDirectoryRequest } from "./sni-client/sni_pb";
   import File from "./File.svelte";
@@ -19,7 +20,9 @@
   import { device, fileSystemClient } from "./store";
   import { saveFile } from "./utils";
   import AlttprDialog from "./alttpr/AlttprDialog.svelte";
-  import Icon from "@iconify/svelte";
+  import IconifyIcon from "@iconify/svelte";
+  import { Icon } from "@smui/button";
+
   import SMRDialog from "./smr/SMRDialog.svelte";
 
   export let directory;
@@ -27,6 +30,9 @@
   export let expanded = false;
   let fileInput;
   let files;
+
+  let surface;
+  let anchor;
 
   let promise;
   $: expanded, expanded ? loadFiles() : (promise = null);
@@ -130,33 +136,60 @@
   on:change="{uploadFiles}"
 />
 <Item wrapper>
-  <Item
-    style="padding-left: {indent * 24}px"
-    on:SMUI:action="{() => (expanded = !expanded)}"
-  >
-    <Graphic class="material-icons">folder</Graphic>
-    <Text>&nbsp;{directory.name}</Text>
-    <span class="right">
-      <span>
-        <IconButton on:click$stopPropagation="{() => (openAlttpr = true)}">
-          <Icon icon="mdi:triforce" />
+  <div style="overflow:visible; position:relative;">
+    <Item
+      style="padding-left: {indent * 24}px; position: relative"
+      on:SMUI:action="{() => (expanded = !expanded)}"
+    >
+      <Graphic class="material-icons">folder</Graphic>
+      <Text>&nbsp;{directory.name}</Text>
+      <div class="right" bind:this="{anchor}">
+        <IconButton
+          on:click$stopPropagation="{() => {
+            surface.setOpen(true);
+          }}"
+        >
+          <Icon class="material-icons">more_horiz</Icon>
         </IconButton>
-      </span>
-      <span>
-        <IconButton on:click$stopPropagation="{() => (openSMR = true)}">
-          <Icon icon="game-icons:metroid" />
+      </div>
+    </Item>
+    <MenuSurface
+      bind:this="{surface}"
+      anchorCorner="BOTTOM_RIGHT"
+      anchor="{false}"
+      bind:anchorElement="{anchor}"
+    >
+      <div
+        style="margin: 1em; display: flex; flex-direction: column; align-items: flex-end;"
+      >
+        <IconButton
+          on:click$stopPropagation="{() => {
+            openAlttpr = true;
+            surface.setOpen(false);
+          }}"
+        >
+          <IconifyIcon icon="mdi:triforce" />
         </IconButton>
-      </span>
-      <span>
+        <IconButton
+          on:click$stopPropagation="{() => {
+            openSMR = true;
+            surface.setOpen(false);
+          }}"
+        >
+          <IconifyIcon icon="game-icons:metroid" />
+        </IconButton>
         <IconButton
           class="material-icons"
-          on:click$stopPropagation="{() => fileInput.click()}"
+          on:click$stopPropagation="{() => {
+            fileInput.click();
+            surface.setOpen(false);
+          }}"
         >
           add
         </IconButton>
-      </span>
-    </span>
-  </Item>
+      </div>
+    </MenuSurface>
+  </div>
 
   <List class="sub-list">
     {#await promise}
