@@ -1,10 +1,3 @@
-<style>
-  .right {
-    position: absolute;
-    right: 0;
-  }
-</style>
-
 <script>
   import { Item, Text, Graphic } from "@smui/list";
   import Dialog, { Title, Content, Actions } from "@smui/dialog";
@@ -60,12 +53,13 @@
 
 <div style="overflow:visible; position:relative;">
   <Item
-    style="padding-left: {(indent + 1) * 24}px; position: relative;"
+    style="padding-left: {(indent + 1) *
+      24}px; display: flex; flex-direction: row; padding-right: 0px"
     on:SMUI:action="{onClick}"
   >
     <Graphic class="material-icons">videogame_asset</Graphic>
-    <Text>{name}</Text>
-    <div class="right" bind:this="{anchor}">
+    <Text style="flex: 1">{name}</Text>
+    <div bind:this="{anchor}">
       <IconButton
         on:click$stopPropagation="{() => {
           surface.setOpen(true);

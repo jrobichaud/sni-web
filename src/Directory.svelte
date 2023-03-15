@@ -2,11 +2,6 @@
   .hidden {
     display: none;
   }
-
-  .right {
-    position: absolute;
-    right: 0;
-  }
 </style>
 
 <script>
@@ -138,12 +133,13 @@
 <Item wrapper>
   <div style="overflow:visible; position:relative;">
     <Item
-      style="padding-left: {indent * 24}px; position: relative"
+      style="padding-left: {indent *
+        24}px; display: flex; flex-direction: row; padding-right: 0px"
       on:SMUI:action="{() => (expanded = !expanded)}"
     >
       <Graphic class="material-icons">folder</Graphic>
-      <Text>&nbsp;{directory.name}</Text>
-      <div class="right" bind:this="{anchor}">
+      <Text style="flex: 1">&nbsp;{directory.name}</Text>
+      <div bind:this="{anchor}">
         <IconButton
           on:click$stopPropagation="{() => {
             surface.setOpen(true);
